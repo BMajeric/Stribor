@@ -129,6 +129,10 @@ public class FirstPersonController : MonoBehaviour
     private Vector3 jointOriginalPos;
     private float timer = 0;
 
+    //Stribor varijable
+
+    public int BrojJelenica = 0;
+
     #endregion
 
     private void Awake()
