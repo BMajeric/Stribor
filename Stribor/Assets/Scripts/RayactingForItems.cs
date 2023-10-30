@@ -16,6 +16,8 @@ public class RaycastingForItems : MonoBehaviour
 
     public TMP_Text JeleniceTekst;
 
+    private GameObject trenutnaJelenica;
+
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -39,6 +41,11 @@ public class RaycastingForItems : MonoBehaviour
             //skupi jelenicu
             //Debug.Log("Raycast hit");
 
+            trenutnaJelenica = hit.transform.gameObject;
+
+            //stvori outline jelenice
+            hit.transform.gameObject.GetComponent<Outline>().enabled = true;
+
             Debug.DrawRay(ociLevel.position, Camera.main.transform.forward * hit.distance, Color.yellow, 2);
 
 
@@ -58,6 +65,14 @@ public class RaycastingForItems : MonoBehaviour
             
 
 
+        } else if(trenutnaJelenica != null) {
+
+            if (trenutnaJelenica.GetComponent<Outline>().enabled) {
+
+                trenutnaJelenica.GetComponent<Outline>().enabled = false;
+            }
+
+            
         }
         
     }
