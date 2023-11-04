@@ -159,6 +159,7 @@ Material:
     - _AlphaToMask: 0
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
+    - _BlendOp: 0
     - _BumpIntensity: 1
     - _BumpLerp: 0.5
     - _BumpScale: 1
@@ -180,6 +181,7 @@ Material:
     - _GerstnerIntensity: 1
     - _GlossMapScale: 0
     - _Glossiness: 2.1641788
+    - _GlossinessSource: 0
     - _GlossyReflections: 0
     - _InvertValue: 0
     - _Metallic: 0
@@ -201,10 +203,12 @@ Material:
     - _Shift: 0
     - _Shininess: 0.6012862
     - _Smoothness: 0.78
+    - _SmoothnessSource: 0
     - _SmoothnessTextureChannel: 0
     - _Smth: 0.95
     - _SpecContrast: 2
     - _SpecIntensity: 2.3
+    - _SpecSource: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
