@@ -133,7 +133,11 @@ public class FirstPersonController : MonoBehaviour
 
     public int BrojJelenica = 0;
 
+    private bool onSteepSlope;
+
     #endregion
+
+    
 
     private void Awake()
     {
@@ -375,10 +379,14 @@ public class FirstPersonController : MonoBehaviour
     {
         #region Movement
 
+        //Check if player is on a steep slope and if he is, disable movement
+
         if (playerCanMove)
         {
             // Calculate how fast we should be moving
             Vector3 targetVelocity = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+
+            
 
             // Checks if player is walking and isGrounded
             // Will allow head bob
@@ -516,7 +524,7 @@ public class FirstPersonController : MonoBehaviour
 
     private void HeadBob()
     {
-        if(isWalking)
+        if(isWalking && isGrounded)
         {
             // Calculates HeadBob speed during sprint
             if(isSprinting)
@@ -543,6 +551,11 @@ public class FirstPersonController : MonoBehaviour
             joint.localPosition = new Vector3(Mathf.Lerp(joint.localPosition.x, jointOriginalPos.x, Time.deltaTime * bobSpeed), Mathf.Lerp(joint.localPosition.y, jointOriginalPos.y, Time.deltaTime * bobSpeed), Mathf.Lerp(joint.localPosition.z, jointOriginalPos.z, Time.deltaTime * bobSpeed));
         }
     }
+
+    
+
+
+
 }
 
 
@@ -742,6 +755,12 @@ public class FirstPersonController : MonoBehaviour
         fpc.bobSpeed = EditorGUILayout.Slider(new GUIContent("Speed", "Determines how often a bob rotation is completed."), fpc.bobSpeed, 1, 20);
         fpc.bobAmount = EditorGUILayout.Vector3Field(new GUIContent("Bob Amount", "Determines the amount the joint moves in both directions on every axes."), fpc.bobAmount);
         GUI.enabled = true;
+
+        #endregion
+
+        #region Slope Handling
+
+
 
         #endregion
 
