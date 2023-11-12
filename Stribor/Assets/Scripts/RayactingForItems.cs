@@ -18,6 +18,8 @@ public class RaycastingForItems : MonoBehaviour
 
     private GameObject trenutnaJelenica;
 
+    private GameObject trenutniHideable;
+
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -25,19 +27,17 @@ public class RaycastingForItems : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
-     void FixedUpdate() {
+     void Update() {
 
         RaycastHit hit;
 
         //provjera za jelenice
-        LayerMask mask = LayerMask.GetMask("Jelenice");
+        LayerMask maskJelenice = LayerMask.GetMask("Jelenice");
 
-        if (Physics.Raycast(ociLevel.position, Camera.main.transform.forward, out hit, 2, mask)) {
+        
+
+        if (Physics.Raycast(ociLevel.position, Camera.main.transform.forward, out hit, 2, maskJelenice)) {
             //skupi jelenicu
             //Debug.Log("Raycast hit");
 
@@ -74,6 +74,36 @@ public class RaycastingForItems : MonoBehaviour
 
             
         }
+
+        //provjera za hideable objekte
+
+        LayerMask maskHideable = LayerMask.GetMask("Hideable");
+
+        if (Physics.Raycast(ociLevel.position, Camera.main.transform.forward, out hit, 4, maskHideable)) {
+
+            //pogodio je hideable sada se treba onak sakriti
+
+            trenutniHideable = hit.transform.gameObject;
+
+            //stvori outline stvari
+            hit.transform.gameObject.GetComponent<Outline>().enabled = true;
+
+            if (Input.GetKeyDown(pickUpKey)) {
+
+                Debug.Log("Sakrio se buraz");
+                trenutniHideable.GetComponent<HideableObject>().Hide(player.transform);
+            }
+
+        } else if(trenutniHideable != null) {
+
+            if (trenutniHideable.GetComponent<Outline>().enabled) {
+
+                trenutniHideable.GetComponent<Outline>().enabled = false;
+            }
+
+            
+        }
+
         
     }
 }
