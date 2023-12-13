@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Jelenica
   - Hideable
+  - Enemy
   layers:
   - Default
   - TransparentFX
