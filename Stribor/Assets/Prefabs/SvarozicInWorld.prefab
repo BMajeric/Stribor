@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 5148794002052159293}
   - component: {fileID: 1677807044205000229}
   m_Layer: 0
-  m_Name: Svarozic
+  m_Name: SvarozicInWorld
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,8 +31,8 @@ Transform:
   m_GameObject: {fileID: 6570254738264066211}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -162.37, y: 50.98, z: 338.796}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5017757269033438510}
@@ -549,7 +549,7 @@ Transform:
   m_GameObject: {fileID: 7151200629762719562}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.12364197, y: 0.831, z: -0.20605469}
+  m_LocalPosition: {x: -0.1135, y: 0.5718, z: -0.1696}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -567,8 +567,8 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 0.9716981, g: 0.7169616, b: 0.47209862, a: 1}
-  m_Intensity: 30
-  m_Range: 2
+  m_Intensity: 40
+  m_Range: 50
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
