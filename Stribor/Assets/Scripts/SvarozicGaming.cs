@@ -65,6 +65,10 @@ public class SvarozicGaming : MonoBehaviour
 
         SvarozicInWorld.transform.position = startLokacija;
 
+        int SvarozicLayer = LayerMask.NameToLayer("Svarozic");
+
+        SvarozicInWorld.layer = SvarozicLayer;
+
         smjerLansiranja = Camera.main.transform.forward;
 
         SvarozicInWorld.GetComponent<Rigidbody>().AddForce(smjerLansiranja * LaunchForce);

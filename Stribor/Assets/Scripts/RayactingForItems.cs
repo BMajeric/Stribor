@@ -10,6 +10,8 @@ public class RaycastingForItems : MonoBehaviour
     private GameObject player;
     private FirstPersonController playerController;
 
+    private SvarozicGaming svarozicSkripta;
+
     public Transform ociLevel;
 
     public KeyCode pickUpKey = KeyCode.E;
@@ -18,24 +20,24 @@ public class RaycastingForItems : MonoBehaviour
 
     private GameObject trenutnaJelenica;
 
+    private GameObject Svarozic;
+
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         playerController = player.GetComponent<FirstPersonController>();
+        svarozicSkripta = player.GetComponent<SvarozicGaming>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
-     void FixedUpdate() {
+     void Update() {
 
         RaycastHit hit;
 
         //provjera za jelenice
         LayerMask mask = LayerMask.GetMask("Jelenice");
+
+        LayerMask svarozicMask = LayerMask.GetMask("Svarozic");
 
         if (Physics.Raycast(ociLevel.position, Camera.main.transform.forward, out hit, 2, mask)) {
             //skupi jelenicu
@@ -74,6 +76,36 @@ public class RaycastingForItems : MonoBehaviour
 
             
         }
+
+        if (Physics.Raycast(ociLevel.position, Camera.main.transform.forward, out hit, 2, svarozicMask)) {
+
+            //udario le svarozica, skupi ga
+
+            Svarozic = hit.transform.gameObject;
+
+            Svarozic.GetComponent<Outline>().enabled = true;
+
+            if (Input.GetKeyDown(pickUpKey)) {
+
+                svarozicSkripta.BrojSvarozica += 1;
+                svarozicSkripta.SvaroziciTekst.text = "Svarozici: " + svarozicSkripta.BrojSvarozica;
+
+
+                //UNISTENJE
+                Destroy(Svarozic);
+
+                Debug.Log("Svarozic skupljen");
+
+            }
+
+        } else if(Svarozic != null) {
+
+            if (Svarozic.GetComponent<Outline>().enabled) {
+
+                Svarozic.GetComponent<Outline>().enabled = false;
+            }
         
+        }
     }
+
 }
