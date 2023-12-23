@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -6,8 +7,20 @@ using UnityEngine;
 public class SvarozicGaming : MonoBehaviour
 {
 
+    //SVAROZIC SVIJETLO STAGEOVI
+    //STAGE 0: nemas ga lmao
+    //STAGE 1: intensity: 15, range: 100
+    //STAGE 2: intensity: 35, range: 100
+    //STAGE 3: intenstiy: 60, range = 150
+
     //za palit ili gasit svijetlo
     public KeyCode LightGumb = KeyCode.R;
+
+    public GameObject SvarozicURuci;
+
+    private Light SvarozicSvijetlo;
+
+    private bool MozeGasiti; //bool za onemogucavanje spemanja tijekom animacije
 
     public KeyCode BaciSvarozicaGumb = KeyCode.Mouse0;
 
@@ -41,6 +54,10 @@ public class SvarozicGaming : MonoBehaviour
 
         SvaroziciTekst.text = "Svarozici: " + BrojSvarozica;
 
+        SvarozicSvijetlo = SvarozicURuci.transform.Find("Light").GetComponent<Light>();
+
+        MozeGasiti = true;
+
 
         
     }
@@ -49,17 +66,63 @@ public class SvarozicGaming : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKeyDown(BaciSvarozicaGumb) && BrojSvarozica > 1) {
+        if (Input.GetKeyDown(BaciSvarozicaGumb) && BrojSvarozica > 1 && SvarozicURuci.activeSelf) {
             LansirajSvarozica();
+        }
+
+        if (Input.GetKeyDown(LightGumb) && MozeGasiti && SvarozicURuci.activeSelf) {
+            MozeGasiti = false;
+            StartCoroutine(UgasiSvarozicaURuci(0f));
+        } else if (Input.GetKeyDown(LightGumb) && MozeGasiti && !SvarozicURuci.activeSelf) {
+            SvarozicURuci.SetActive(true);
+            MozeGasiti = false;
+            StartCoroutine(UpaliSvarozicaURuci(0f));
         }
 
         
     }
 
+    IEnumerator UgasiSvarozicaURuci(float t) {
+
+        t += 0.1f;
+
+        float lerpSvijetlo = Mathf.Lerp(30, 0, t);
+
+        SvarozicSvijetlo.intensity = lerpSvijetlo;
+
+        yield return new WaitForSeconds(0.1f);
+
+        if (t < 1f) {
+            StartCoroutine(UgasiSvarozicaURuci(t));
+        } else {
+            MozeGasiti = true;
+            SvarozicURuci.SetActive(false);
+        }
+
+    }
+
+    IEnumerator UpaliSvarozicaURuci(float t) {
+
+        t += 0.1f;
+
+        float lerpSvijetlo = Mathf.Lerp(0, 30, t);
+
+        SvarozicSvijetlo.intensity = lerpSvijetlo;
+
+        yield return new WaitForSeconds(0.1f);
+
+        if (t < 1f) {
+            StartCoroutine(UpaliSvarozicaURuci(t));
+        } else {
+            MozeGasiti = true;
+        }
+
+    }
+
     void LansirajSvarozica() {
         Debug.Log("Lansiroje");
 
-        startLokacija = GameObject.FindGameObjectWithTag("Player").transform.Find("SvarozicURuci").transform.position;
+        startLokacija = SvarozicURuci.transform.position;
 
         GameObject SvarozicInWorld = Instantiate(SvarozicPrefab, SvaroziciParent);
 
