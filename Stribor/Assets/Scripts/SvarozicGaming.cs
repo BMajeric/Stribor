@@ -9,18 +9,31 @@ public class SvarozicGaming : MonoBehaviour
 
     //SVAROZIC SVIJETLO STAGEOVI
     //STAGE 0: nemas ga lmao
-    //STAGE 1: intensity: 15, range: 100
-    //STAGE 2: intensity: 35, range: 100
+    //STAGE 1: intensity: 15, range: 50
+    //STAGE 2: intensity: 25, range: 75
+    //STAGE 3: intensity: 45, range: 100
     //STAGE 3: intenstiy: 60, range = 150
+
+    //koliko se mijenja t vrijednost izmedu svake korutine
+    public float trast;
+
+    //kolko brzo izmedu pokretanja korutina
+    public float brzinaRasta;
 
     //za palit ili gasit svijetlo
     public KeyCode LightGumb = KeyCode.R;
+
+    public List<GameObject> SvarozicSnage;
+
+    private List<(float intenzitet, float domet)> ListaZaSvarozice = new List<(float, float)>(); //lista koja sprema intenzitete i range svarozica na pocetku igre
 
     public GameObject SvarozicURuci;
 
     private Light SvarozicSvijetlo;
 
     private bool MozeGasiti; //bool za onemogucavanje spemanja tijekom animacije
+
+    public bool SvarozicUgasen; //bool za provjeru svijetla kod neprijatelja i tako
 
     public KeyCode BaciSvarozicaGumb = KeyCode.Mouse0;
 
@@ -44,6 +57,8 @@ public class SvarozicGaming : MonoBehaviour
 
     Vector3 smjerLansiranja;
 
+    private float pocetniIntenzitet;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -54,11 +69,23 @@ public class SvarozicGaming : MonoBehaviour
 
         SvaroziciTekst.text = "Svarozici: " + BrojSvarozica;
 
+        SvarozicURuci = SvarozicSnage[0];
+
         SvarozicSvijetlo = SvarozicURuci.transform.Find("Light").GetComponent<Light>();
 
         MozeGasiti = true;
 
+        SvarozicUgasen = false;
 
+        foreach (GameObject Svarozic in SvarozicSnage) {
+            (float intenzitet, float domet) tuple;
+            Light Svijetlo = Svarozic.transform.Find("Light").GetComponent<Light>();
+            tuple.intenzitet = Svijetlo.intensity;
+            tuple.domet = Svijetlo.range;
+            ListaZaSvarozice.Add(tuple);
+        }
+
+        
         
     }
 
@@ -68,13 +95,17 @@ public class SvarozicGaming : MonoBehaviour
 
         if (Input.GetKeyDown(BaciSvarozicaGumb) && BrojSvarozica > 1 && SvarozicURuci.activeSelf) {
             LansirajSvarozica();
+            UpgradeSvarozic();
+            //gej
         }
 
         if (Input.GetKeyDown(LightGumb) && MozeGasiti && SvarozicURuci.activeSelf) {
             MozeGasiti = false;
+            
             StartCoroutine(UgasiSvarozicaURuci(0f));
         } else if (Input.GetKeyDown(LightGumb) && MozeGasiti && !SvarozicURuci.activeSelf) {
             SvarozicURuci.SetActive(true);
+            SvarozicUgasen = false;
             MozeGasiti = false;
             StartCoroutine(UpaliSvarozicaURuci(0f));
         }
@@ -82,20 +113,45 @@ public class SvarozicGaming : MonoBehaviour
         
     }
 
+    void UpgradeSvarozic() {
+
+        int index = SvarozicSnage.IndexOf(SvarozicURuci);
+
+        if (index != SvarozicSnage.Count - 1) {
+
+            //napravi neku animaciju
+            SvarozicURuci.SetActive(false);
+            SvarozicURuci = SvarozicSnage[index + 1];
+            SvarozicURuci.SetActive(true);
+            SvarozicSvijetlo = SvarozicURuci.transform.Find("Light").GetComponent<Light>();
+        }
+
+    }
+
     IEnumerator UgasiSvarozicaURuci(float t) {
 
-        t += 0.1f;
+        if (t == 0f) {
+            int index = SvarozicSnage.IndexOf(SvarozicURuci);
+            pocetniIntenzitet = ListaZaSvarozice[index].intenzitet;
+        }
 
-        float lerpSvijetlo = Mathf.Lerp(30, 0, t);
+        t += trast;
+
+        
+
+        float lerpSvijetlo = Mathf.Lerp(pocetniIntenzitet, 0, t);
+
+        
 
         SvarozicSvijetlo.intensity = lerpSvijetlo;
 
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(brzinaRasta);
 
         if (t < 1f) {
             StartCoroutine(UgasiSvarozicaURuci(t));
         } else {
             MozeGasiti = true;
+            SvarozicUgasen = true;
             SvarozicURuci.SetActive(false);
         }
 
@@ -103,13 +159,18 @@ public class SvarozicGaming : MonoBehaviour
 
     IEnumerator UpaliSvarozicaURuci(float t) {
 
-        t += 0.1f;
+        if (t == 0f) {
+            int index = SvarozicSnage.IndexOf(SvarozicURuci);
+            pocetniIntenzitet = ListaZaSvarozice[index].intenzitet;
+        }
 
-        float lerpSvijetlo = Mathf.Lerp(0, 30, t);
+        t += trast;
+
+        float lerpSvijetlo = Mathf.Lerp(0, pocetniIntenzitet, t);
 
         SvarozicSvijetlo.intensity = lerpSvijetlo;
 
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(brzinaRasta);
 
         if (t < 1f) {
             StartCoroutine(UpaliSvarozicaURuci(t));

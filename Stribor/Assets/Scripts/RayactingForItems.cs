@@ -22,11 +22,17 @@ public class RaycastingForItems : MonoBehaviour
 
     private GameObject Svarozic;
 
+    LayerMask mask;
+
+    LayerMask svarozicMask;
+
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         playerController = player.GetComponent<FirstPersonController>();
         svarozicSkripta = player.GetComponent<SvarozicGaming>();
+        mask = LayerMask.GetMask("Jelenice");
+        svarozicMask = LayerMask.GetMask("Svarozic");
     }
 
 
@@ -35,9 +41,6 @@ public class RaycastingForItems : MonoBehaviour
         RaycastHit hit;
 
         //provjera za jelenice
-        LayerMask mask = LayerMask.GetMask("Jelenice");
-
-        LayerMask svarozicMask = LayerMask.GetMask("Svarozic");
 
         if (Physics.Raycast(ociLevel.position, Camera.main.transform.forward, out hit, 2, mask)) {
             //skupi jelenicu

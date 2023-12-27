@@ -1,6 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
+//using UnityEngine.Rendering.HighDefinition;
+using UnityEngine.Rendering.Universal;
 
 public class TamnaSumaArea : MonoBehaviour
 {
@@ -11,21 +15,57 @@ public class TamnaSumaArea : MonoBehaviour
 
     FirstPersonController playerScript;
 
+    SvarozicGaming svarozicSkripta;
+
+    public bool checkSvarozic; //debug da ne moras imat max svarozica
+
     Color pocetnaBojaMagle;
+
+    private Volume volume;
+
+    private VolumeProfile profil;
+
+    private Vignette vinjeta;
+
+    public bool vani;
+
+    public float trast;
+
+    public float brzinaRasta;
 
     private void Start() {
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<FirstPersonController>();
+        svarozicSkripta = GameObject.FindGameObjectWithTag("Player").GetComponent<SvarozicGaming>();
+        
         pocetnaBojaMagle.r = 0.3396226f;
         pocetnaBojaMagle.g = 0.3396226f;
         pocetnaBojaMagle.b = 0.3396226f;
 
+        volume = GameObject.Find("Global Volume").GetComponent<Volume>();
+
+        profil = volume.sharedProfile;
+
+        
+
+        profil.TryGet(out vinjeta);
+        
+        vinjeta.intensity.overrideState = true;
+
+        vani = false;
+        
+
+        
+
     }
+
     
     void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player") {
 
             Debug.Log("Igrac usao u sumu");
+
+            this.GetComponent<TamnaSumaEnemy>().enabled = true;
 
             //RenderSettings.fogDensity = 0.5f;
 
@@ -41,6 +81,20 @@ public class TamnaSumaArea : MonoBehaviour
 
             StartCoroutine(PromijeniMaglu(0f));
 
+            int index = svarozicSkripta.SvarozicSnage.IndexOf(svarozicSkripta.SvarozicURuci);
+
+            if (index != svarozicSkripta.SvarozicSnage.Count - 1) {
+
+                if (checkSvarozic) {
+                    Subtitles.Show("Ovo nije bila dobra ideja, možda bih trebao izaći...", 2f);
+                
+                    StartCoroutine(UbijIgracaBezSvijetla(0f));
+                }
+                //pocni ubijat igraca
+                
+
+            }
+
         }
     }
 
@@ -49,7 +103,7 @@ public class TamnaSumaArea : MonoBehaviour
     {
         if (other.tag == "Player") {
 
-
+            this.GetComponent<TamnaSumaEnemy>().enabled = false;
 
         
             Debug.Log("Igrac izasao iz sume");
@@ -67,13 +121,25 @@ public class TamnaSumaArea : MonoBehaviour
             //sada smanji fog i omoguci kretanje
 
             StartCoroutine(OdmijeniMaglu(0f));
+
+            int index = svarozicSkripta.SvarozicSnage.IndexOf(svarozicSkripta.SvarozicURuci);
+
+            if (index != svarozicSkripta.SvarozicSnage.Count - 1) {
+
+                //pocni ubijat igraca
+                if (checkSvarozic) {
+                    StartCoroutine(OdUbijIgracaBezSvijetla(0f));
+                }
+                
+
+            }
         }
         
     }
 
     IEnumerator PromijeniMaglu(float t) {
-
-        t += 0.05f;
+        vani = true;
+        t += trast;
 
         Color lerpedColor = Color.Lerp(pocetnaBojaMagle, Color.black, t);
 
@@ -83,7 +149,7 @@ public class TamnaSumaArea : MonoBehaviour
 
         RenderSettings.fogDensity = lerpedDensity;
 
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(brzinaRasta);
 
         if (t < 1f) {
             StartCoroutine(PromijeniMaglu(t));
@@ -92,8 +158,8 @@ public class TamnaSumaArea : MonoBehaviour
     }
 
     IEnumerator OdmijeniMaglu(float t) {
-
-        t += 0.05f;
+        vani = false;
+        t += trast;
 
         Color lerpedColor = Color.Lerp(Color.black, pocetnaBojaMagle, t);
 
@@ -103,10 +169,54 @@ public class TamnaSumaArea : MonoBehaviour
 
         RenderSettings.fogDensity = lerpedDensity;
 
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(brzinaRasta);
 
         if (t < 1f) {
             StartCoroutine(OdmijeniMaglu(t));
+        }
+
+    }
+
+    IEnumerator UbijIgracaBezSvijetla(float t) {
+        //ubi igraca ako nema svarozica level 4
+        
+        t += 0.01f;
+
+        float lerpedVignette = Mathf.Lerp(0.25f, 1f, t);
+
+
+        vinjeta.intensity.value = lerpedVignette;
+
+        yield return new WaitForSeconds(0.1f);
+
+
+        if (t < 1f && vani) {
+            StartCoroutine(UbijIgracaBezSvijetla(t));
+        } else {
+            //ubi igraca
+            Debug.Log("Smrt");
+        }
+
+    }
+
+    IEnumerator OdUbijIgracaBezSvijetla(float t) {
+        //makni vinjetu ako izade iz sume
+        
+        t += 0.1f;
+
+        float lerpedVignette = Mathf.Lerp(1f, 0.25f, t);
+
+
+        vinjeta.intensity.value = lerpedVignette;
+
+        yield return new WaitForSeconds(0.1f);
+
+
+        if (t < 1f) {
+            StartCoroutine(OdUbijIgracaBezSvijetla(t));
+        } else {
+            //ubi igraca
+            Debug.Log("Jooo nisi umro");
         }
 
     }
