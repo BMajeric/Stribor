@@ -22,10 +22,18 @@ public class RaycastingForItems : MonoBehaviour
 
     private GameObject Svarozic;
 
+    private GameObject svarozicStation;
+
     LayerMask mask;
 
     LayerMask svarozicMask;
 
+    LayerMask svarozicUpgradeMask;
+
+    ParticleSystem upgradeSvarozica;
+
+
+    public List<GameObject> ListaUpgradePointovaISistema; //Lista koja sadrzi objekte, objekt1 je stvar na koju ce igrac moci kliknuti, a index+1 je particle sistem za to
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -33,6 +41,7 @@ public class RaycastingForItems : MonoBehaviour
         svarozicSkripta = player.GetComponent<SvarozicGaming>();
         mask = LayerMask.GetMask("Jelenice");
         svarozicMask = LayerMask.GetMask("Svarozic");
+        svarozicUpgradeMask = LayerMask.GetMask("SvarozicUpgrade");
     }
 
 
@@ -109,6 +118,47 @@ public class RaycastingForItems : MonoBehaviour
             }
         
         }
+
+        if (Physics.Raycast(ociLevel.position, Camera.main.transform.forward, out hit, 2, svarozicUpgradeMask)) {
+
+            //stisce li igrac E
+
+            svarozicStation = hit.transform.gameObject;
+
+            svarozicStation.GetComponent<Outline>().enabled = true;
+
+            if (Input.GetKeyDown(pickUpKey) && !svarozicSkripta.SvarozicUgasen) {
+                //nasao je neki upgrade station
+                int indexStationa = ListaUpgradePointovaISistema.IndexOf(hit.transform.gameObject);
+
+                //Lansiraj particle i upgradeaj svarozica i iskljuci kamin upgrade
+
+                upgradeSvarozica = ListaUpgradePointovaISistema[indexStationa + 1].GetComponent<ParticleSystem>();
+
+                hit.transform.gameObject.SetActive(false);
+
+                upgradeSvarozica.Play();
+
+                upgradeSvarozica.gameObject.GetComponent<AudioSource>().Play();
+
+                svarozicSkripta.UpgradeSvarozic();
+                
+
+            }
+            
+
+
+
+
+        } else if (svarozicStation != null) {
+            if (svarozicStation.GetComponent<Outline>().enabled) {
+
+                svarozicStation.GetComponent<Outline>().enabled = false;
+            }
+        }
+
     }
+
+    
 
 }

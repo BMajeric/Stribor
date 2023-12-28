@@ -28,6 +28,8 @@ public class TamnaSumaEnemySpawned : MonoBehaviour
 
     public AudioSource lisceZvuk;
 
+    float vrijemeAktivno;
+
     bool bijeg; //za trcanje od igraca i despawnanje
 
     float distance; //udaljenost izmedu enemya i igraca
@@ -61,6 +63,8 @@ public class TamnaSumaEnemySpawned : MonoBehaviour
         uNapadu = false;
 
         bijeg = false;
+
+        vrijemeAktivno = Time.time;
     }
 
     // Update is called once per frame
@@ -84,10 +88,16 @@ public class TamnaSumaEnemySpawned : MonoBehaviour
             KreciSeOdIgraca();
         }
 
+        if (Time.time - vrijemeAktivno > 120f && Time.time - vrijemeAktivno < 123f) {
+            bijeg = true;
+        } else if (Time.time - vrijemeAktivno > 123f) {
+            this.gameObject.SetActive(false);
+        }
+
         //napravi da je y vrijednost uvijek oko zemlje da ne clipa kroz shit
 
         //raycast dolje
-        Debug.DrawRay(this.transform.position, Vector3.down, Color.red, 2);
+        //Debug.DrawRay(this.transform.position, Vector3.down, Color.red, 2);
         if (Physics.Raycast(this.transform.position, Vector3.down, out hitGround, 20, terrainMask)) {
             
             //this.transform.position = new Vector3(this.transform.position.x, hitGround.transform.position.y, this. transform.position.z);

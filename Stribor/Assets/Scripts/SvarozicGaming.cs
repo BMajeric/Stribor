@@ -113,7 +113,7 @@ public class SvarozicGaming : MonoBehaviour
         
     }
 
-    void UpgradeSvarozic() {
+    public void UpgradeSvarozic() {
 
         int index = SvarozicSnage.IndexOf(SvarozicURuci);
 
