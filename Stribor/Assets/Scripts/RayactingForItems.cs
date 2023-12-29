@@ -32,6 +32,14 @@ public class RaycastingForItems : MonoBehaviour
 
     ParticleSystem upgradeSvarozica;
 
+    public TMP_Text tooltips;
+
+    public int brojJelenica;
+
+    public GameObject vrijemeObjekt;
+
+    private VrijemeSkripta vrijeme;
+
 
     public List<GameObject> ListaUpgradePointovaISistema; //Lista koja sadrzi objekte, objekt1 je stvar na koju ce igrac moci kliknuti, a index+1 je particle sistem za to
     void Start()
@@ -42,6 +50,8 @@ public class RaycastingForItems : MonoBehaviour
         mask = LayerMask.GetMask("Jelenice");
         svarozicMask = LayerMask.GetMask("Svarozic");
         svarozicUpgradeMask = LayerMask.GetMask("SvarozicUpgrade");
+        brojJelenica = 0;
+        vrijeme = vrijemeObjekt.GetComponent<VrijemeSkripta>();
     }
 
 
@@ -62,17 +72,25 @@ public class RaycastingForItems : MonoBehaviour
 
             Debug.DrawRay(ociLevel.position, Camera.main.transform.forward * hit.distance, Color.yellow, 2);
 
+            tooltips.text = "(" + pickUpKey.ToString() + ") Skupi jelenicu";
+
+            tooltips.enabled = true;
+
 
             //promijeni boju, kasnije ce biti outline i dopustiti skupljanje
 
             if (Input.GetKeyDown(pickUpKey)) {
 
-                playerController.BrojJelenica += 1;
-                JeleniceTekst.text = "Jelenice X " + playerController.BrojJelenica;
+                brojJelenica += 1;
+                JeleniceTekst.text = "Jelenice X " + brojJelenica;
 
                 hit.collider.gameObject.SetActive(false);
 
                 Debug.Log("Jelenica skupljena");
+
+                tooltips.enabled = false;
+
+                vrijeme.PromijeniVrijeme(brojJelenica);
 
             }
 
@@ -84,6 +102,7 @@ public class RaycastingForItems : MonoBehaviour
             if (trenutnaJelenica.GetComponent<Outline>().enabled) {
 
                 trenutnaJelenica.GetComponent<Outline>().enabled = false;
+                tooltips.enabled = false;
             }
 
             
@@ -97,6 +116,9 @@ public class RaycastingForItems : MonoBehaviour
 
             Svarozic.GetComponent<Outline>().enabled = true;
 
+            tooltips.enabled = true;
+            tooltips.text = "(" + pickUpKey.ToString() + ") Skupi svarožića";
+
             if (Input.GetKeyDown(pickUpKey)) {
 
                 svarozicSkripta.BrojSvarozica += 1;
@@ -107,6 +129,7 @@ public class RaycastingForItems : MonoBehaviour
                 Destroy(Svarozic);
 
                 Debug.Log("Svarozic skupljen");
+                tooltips.enabled = false;
 
             }
 
@@ -115,6 +138,7 @@ public class RaycastingForItems : MonoBehaviour
             if (Svarozic.GetComponent<Outline>().enabled) {
 
                 Svarozic.GetComponent<Outline>().enabled = false;
+                tooltips.enabled = false;
             }
         
         }
@@ -126,6 +150,9 @@ public class RaycastingForItems : MonoBehaviour
             svarozicStation = hit.transform.gameObject;
 
             svarozicStation.GetComponent<Outline>().enabled = true;
+
+            tooltips.enabled = true;
+            tooltips.text = "(" + pickUpKey.ToString() + ") Aktiviraj kamin";
 
             if (Input.GetKeyDown(pickUpKey) && !svarozicSkripta.SvarozicUgasen) {
                 //nasao je neki upgrade station
@@ -142,6 +169,8 @@ public class RaycastingForItems : MonoBehaviour
                 upgradeSvarozica.gameObject.GetComponent<AudioSource>().Play();
 
                 svarozicSkripta.UpgradeSvarozic();
+
+                tooltips.enabled = false;
                 
 
             }
@@ -154,6 +183,7 @@ public class RaycastingForItems : MonoBehaviour
             if (svarozicStation.GetComponent<Outline>().enabled) {
 
                 svarozicStation.GetComponent<Outline>().enabled = false;
+                tooltips.enabled = false;
             }
         }
 
