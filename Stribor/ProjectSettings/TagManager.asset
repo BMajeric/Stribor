@@ -8,17 +8,21 @@ TagManager:
   - Hideable
   - Enemy
   - Svarozic
+  - Terrain
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
   - Jelenice
   - Hideable
-  - 
-  - 
+  - Svarozic
+  - Terrain
+  - SvarozicUpgrade
+  -
+  -
   - 
   - 
   - 

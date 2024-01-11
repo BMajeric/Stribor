@@ -12,10 +12,14 @@ public class SlopeHandler : MonoBehaviour
 
     private FirstPersonController fpc;
 
+    private Rigidbody rigid;
+
     #endregion
 
     private void Awake() {
         fpc = gameObject.GetComponent<FirstPersonController>();
+        rigid = this.GetComponent<Rigidbody>();
+
     }
 
     // Update is called once per frame
@@ -33,11 +37,13 @@ public class SlopeHandler : MonoBehaviour
 
     private bool OnSteepSlope() {
 
-        if (Physics.Raycast(ociLevel.position, Vector3.down, out hitSlope, 2f)) {
+        Vector3 smjervektor = rigid.velocity + Vector3.down;
+
+        if (Physics.Raycast(ociLevel.position, smjervektor, out hitSlope, 2f)) {
 
             float slopeAngle = Vector3.Angle(Vector3.up, hitSlope.normal);
 
-            Debug.DrawRay(ociLevel.position, Vector3.down, Color.red, 2);
+            Debug.DrawRay(ociLevel.position, smjervektor, Color.red, 3);
 
             return slopeAngle > maxSlopeAngle;
         }

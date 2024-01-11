@@ -8,9 +8,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
+
 
 #if UNITY_EDITOR
-    using UnityEditor;
+using UnityEditor;
     using System.Net;
 #endif
 
@@ -136,6 +138,12 @@ public class FirstPersonController : MonoBehaviour
     public int BrojJelenica = 0;
 
     private bool onSteepSlope;
+
+    public float maxSlopeAngle = 40f;
+
+    public Vector3 hitNormal;
+
+    public float slopeAngle;
 
     #endregion
 
@@ -376,6 +384,8 @@ public class FirstPersonController : MonoBehaviour
 
         CheckGround();
 
+        //Debug.Log(isGrounded);
+
         if(enableHeadBob)
         {
             HeadBob();
@@ -417,7 +427,22 @@ public class FirstPersonController : MonoBehaviour
             // All movement calculations while sprint is active
             if (enableSprint && Input.GetKey(sprintKey) && sprintRemaining > 0f && !isSprintCooldown)
             {
+                
                 targetVelocity = transform.TransformDirection(targetVelocity) * sprintSpeed;
+
+                if (Input.GetAxis("Horizontal") != 0f && Input.GetAxis("Vertical") != 0f) {
+                    targetVelocity *= 0.7f;
+                }
+
+                if (!isGrounded) {
+                    targetVelocity *= 0.5f;
+                    float omjer = Math.Max(Math.Min(slopeAngle / maxSlopeAngle, 1.5f), 1f);
+                    //Debug.Log(omjer);
+                    targetVelocity.x += (1f - hitNormal.y) * hitNormal.x * 4f * omjer;
+                    targetVelocity.z += (1f - hitNormal.y) * hitNormal.z * 4f * omjer;
+                }
+
+                //Debug.Log(targetVelocity.magnitude);
 
                 // Apply a force that attempts to reach our target velocity
                 Vector3 velocity = rb.velocity;
@@ -459,6 +484,21 @@ public class FirstPersonController : MonoBehaviour
 
                 targetVelocity = transform.TransformDirection(targetVelocity) * walkSpeed;
 
+                if (Input.GetAxis("Horizontal") != 0f && Input.GetAxis("Vertical") != 0f) {
+                    targetVelocity *= 0.7f;
+                }
+
+                //Debug.Log(targetVelocity.magnitude);
+
+                //sliding velocity
+                if (!isGrounded) {
+                    targetVelocity *= 0.5f;
+                    float omjer = Math.Max(Math.Min(slopeAngle / maxSlopeAngle, 1.5f), 1f);
+                    //Debug.Log(omjer);
+                    targetVelocity.x += (1f - hitNormal.y) * hitNormal.x * 3f * omjer;
+                    targetVelocity.z += (1f - hitNormal.y) * hitNormal.z * 3f * omjer;
+                }
+
                 // Apply a force that attempts to reach our target velocity
                 Vector3 velocity = rb.velocity;
                 Vector3 velocityChange = (targetVelocity - velocity);
@@ -478,19 +518,49 @@ public class FirstPersonController : MonoBehaviour
     {
         Vector3 origin = new Vector3(transform.position.x, transform.position.y - (transform.localScale.y * .5f), transform.position.z);
         Vector3 direction = transform.TransformDirection(Vector3.down);
-        float distance = .75f;
+        
+        float distance = 1f;
+        Vector3 smjerKretanja = (rb.velocity.normalized + Vector3.down).normalized;
+        Debug.DrawRay(origin, smjerKretanja, Color.blue, 2);
 
         if (Physics.Raycast(origin, direction, out RaycastHit hit, distance))
         {
+
+            hitNormal = hit.normal;
+            slopeAngle = Vector3.Angle(Vector3.up, hitNormal);
+            //napravi jos jedan raycast u smjeru kretanja za super velike uspone
+            
+            
+
             Debug.DrawRay(origin, direction * distance, Color.red);
-            isGrounded = true;
-            Jumped = false;
+            
+            //Debug.Log(slopeAngle);
+            isGrounded = slopeAngle < maxSlopeAngle;
         }
-        else
+        else if (Physics.Raycast(origin, smjerKretanja, out RaycastHit hit2, distance) && smjerKretanja.normalized != Vector3.down) 
+        {
+            Vector3 hitNormal2 = hit2.normal;
+            float slopeAngle2 = Vector3.Angle(Vector3.up, hitNormal2);
+            
+            //Debug.Log("Kurcoje");
+            
+
+            if (slopeAngle2 > slopeAngle && slopeAngle2 < 90) {
+                slopeAngle = slopeAngle2;
+                hitNormal = hitNormal2;
+            }
+
+            isGrounded = slopeAngle < maxSlopeAngle;
+
+        } else 
         {
             isGrounded = false;
             Jumped = true;
         }
+        
+
+        //Debug.Log(slopeAngle);
+        
     }
 
     private void Jump()
