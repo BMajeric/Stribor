@@ -26,12 +26,16 @@ public class SvarozicInWorldSkripta : MonoBehaviour
         //kada udaris nesto iskljuci gravitaciju i prestani se kretati
 
         //osim igraca
+
+        if (other.transform.tag != "Player") {
+            rigid.velocity = new Vector3(0f, 0f, 0f);
+
+            //rigid.useGravity = false;
+
+            //rigid.isKinematic = true;
+        }
         
-        rigid.velocity = new Vector3(0f, 0f, 0f);
-
-        rigid.useGravity = false;
-
-        rigid.isKinematic = true;
+        
 
         //this.GetComponent<MeshCollider>().enabled = false;
 

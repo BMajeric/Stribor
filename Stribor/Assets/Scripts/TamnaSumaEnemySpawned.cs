@@ -164,7 +164,7 @@ public class TamnaSumaEnemySpawned : MonoBehaviour
     void ubijIgraca() {
         //neki jumpscare ili nesto
         umrositekst.SetActive(true);
-        playerSkripta.playerCanMove = false;
+        playerSkripta.playerCanMove[2] = false;
         playerSkripta.cameraCanMove = false;
         Camera.main.transform.LookAt(this.transform);
     }

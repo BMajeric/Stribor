@@ -161,6 +161,7 @@ public class RaycastingForItems : MonoBehaviour
 
                 //UNISTENJE
                 Destroy(Svarozic);
+                Svarozic = null;
 
                 Debug.Log("Svarozic skupljen");
                 tooltips.enabled = false;

@@ -21,11 +21,14 @@ public class ExposureManager : MonoBehaviour
 
     //ako je igrac skriven u nekom grmu ili nesto -> skripta EnvironmentHide
     public bool environmentHidden;
-
+    
+    Dictionary<ProstorEnums.Lokacija,int> exposureDict = new Dictionary<ProstorEnums.Lokacija, int>();
 
     //igrac skripta za trackanje stanja
 
     FirstPersonController Player;
+
+    SvarozicGaming svarozicSkripta;
 
     IEnumerator ChangeExposure() {
 
@@ -63,26 +66,50 @@ public class ExposureManager : MonoBehaviour
     bool Crouch;
     bool Hiding;
     //zapravo kad god igrac nije grounded
-    bool Jump;
+    bool Grounded;
 
     bool environmentHiding;
+
+    //je li svarozic ukljucen
+    bool Svarozic;
+
+    //kada igrac promijeni lokaciju postavi exposurerate
+    public bool promijenioLokaciju;
+
+    //exposure od lokacije u kojoj si
+    int exposureOdLokacije;
 
     // Start is called before the first frame update
     void Start()
     {
         Player = GameObject.FindGameObjectWithTag("Player").transform.GetComponent<FirstPersonController>();
-
+        svarozicSkripta = GameObject.FindGameObjectWithTag("Player").transform.GetComponent<SvarozicGaming>();
         Walk = Player.isWalking;
         Run = Player.isSprinting;
         Crouch = Player.isCrouched;
-        Jump = Player.isGrounded;
+        Grounded = Player.isGrounded;
+        Svarozic = svarozicSkripta.SvarozicUgasen;
+        promijenioLokaciju = false;
+        exposureOdLokacije = 0;
 
         environmentHidden = false;
         environmentHiding = false;
 
+        //definiraj dict
+        exposureDict.Add(ProstorEnums.Lokacija.TamnaSuma, -30);
+        exposureDict.Add(ProstorEnums.Lokacija.Poljana, 10);
+        exposureDict.Add(ProstorEnums.Lokacija.Jezero, 10);
+        exposureDict.Add(ProstorEnums.Lokacija.Kamenolom, 15);
+        exposureDict.Add(ProstorEnums.Lokacija.Crkva, -5);
+        exposureDict.Add(ProstorEnums.Lokacija.VelikoDrvo, -5);
+        exposureDict.Add(ProstorEnums.Lokacija.Spilja, -10);
+        exposureDict.Add(ProstorEnums.Lokacija.Brdo, 5);
+        exposureDict.Add(ProstorEnums.Lokacija.LovackaKuca, -10);
+
+
         Exposure = 50;
         ExposureRate = 0.5f;
-        ExposureTarget = 50;
+        ExposureTarget = 60;
         StartCoroutine("ChangeExposure");
         
     }
@@ -131,16 +158,16 @@ public class ExposureManager : MonoBehaviour
             ExposureTarget -= 15;
         }
 
-        if (Player.Jumped != Jump && Jump == false) {
+        if (Player.isGrounded != Grounded && Grounded == false) {
             //Igrac je u zraku
             
-            Jump = Player.Jumped;
-            ExposureTarget += 10;
-        } else if (Player.Jumped != Jump && Jump == true) {
+            Grounded = Player.isGrounded;
+            ExposureTarget -= 10;
+        } else if (Player.isGrounded != Grounded && Grounded == true) {
             //Igrac nije u zraku
             
-            Jump = Player.Jumped;
-            ExposureTarget -= 10;
+            Grounded = Player.isGrounded;
+            ExposureTarget += 10;
         }
 
         if (environmentHidden != environmentHiding && environmentHiding == false) {
@@ -151,6 +178,34 @@ public class ExposureManager : MonoBehaviour
             environmentHiding = environmentHidden;
             ExposureTarget += 20;
         }
+        //Svarozic check
+        if (svarozicSkripta.SvarozicUgasen != Svarozic && Svarozic == false) {
+            //Igrac je u zraku
+            
+            Svarozic = svarozicSkripta.SvarozicUgasen;
+            ExposureTarget -= 15;
+        } else if (svarozicSkripta.SvarozicUgasen != Svarozic && Svarozic == true) {
+            //Igrac nije u zraku
+            
+            Svarozic = svarozicSkripta.SvarozicUgasen;
+            ExposureTarget += 15;
+        }
+
+        //lokacija stvar
+        if (promijenioLokaciju) {
+
+            
+            
+            promijenioLokaciju = false;
+
+            ExposureTarget -= exposureOdLokacije;
+
+            exposureOdLokacije = exposureDict[ProstorEnums.lokacijaIgraca];
+            
+            ExposureTarget += exposureOdLokacije;
+            
+        }
+        
 
     }
 

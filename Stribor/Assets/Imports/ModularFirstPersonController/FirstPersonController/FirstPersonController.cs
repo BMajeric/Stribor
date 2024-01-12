@@ -162,6 +162,7 @@ public class FirstPersonController : MonoBehaviour
 
         playerCanMove.Insert(0, true);//slope provjera
         playerCanMove.Insert(1, true);//hiding provjera
+        playerCanMove.Insert(2, true); //umro provjera
         
 
         if (!unlimitedSprint)
@@ -555,7 +556,7 @@ public class FirstPersonController : MonoBehaviour
         } else 
         {
             isGrounded = false;
-            Jumped = true;
+            Jumped = false;
         }
         
 
@@ -587,7 +588,7 @@ public class FirstPersonController : MonoBehaviour
         if(isCrouched)
         {
             transform.localScale = new Vector3(originalScale.x, originalScale.y, originalScale.z);
-            walkSpeed /= speedReduction;
+            walkSpeed = 5f;
 
             isCrouched = false;
         }
@@ -596,7 +597,7 @@ public class FirstPersonController : MonoBehaviour
         else
         {
             transform.localScale = new Vector3(originalScale.x, crouchHeight, originalScale.z);
-            walkSpeed *= speedReduction;
+            walkSpeed = 2.5f;
 
             isCrouched = true;
         }

@@ -71,6 +71,7 @@ public class TamnaSumaArea : MonoBehaviour
 
             //RenderSettings.fogColor = Color.black;
 
+
             //sada povecaj fog i onemoguci kretanje
 
             playerScript.enableSprint = false;
