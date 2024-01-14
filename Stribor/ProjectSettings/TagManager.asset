@@ -9,6 +9,10 @@ TagManager:
   - Enemy
   - Svarozic
   - Terrain
+  - VrataKamenolom
+  - SvarozicUpgrade
+  - Jelen
+  - Kljuc
   layers:
   - Default
   - TransparentFX
@@ -17,16 +21,13 @@ TagManager:
   - Water
   - UI
   - Jelenice
-  - Hideable
-  - Svarozic
+  - 
+  - 
   - Terrain
-  - SvarozicUpgrade
-  -
-  -
   - 
   - 
   - 
-  - 
+  - Item
   - 
   - 
   - 

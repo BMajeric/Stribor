@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1710273731650645578}
-  m_Layer: 7
+  m_Layer: 13
   m_Name: StealthPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,7 +47,7 @@ GameObject:
   - component: {fileID: 4508853396897736749}
   - component: {fileID: 6999981253933152491}
   - component: {fileID: 4683602142473879847}
-  m_Layer: 7
+  m_Layer: 13
   m_Name: HideObjekt
   m_TagString: Hideable
   m_Icon: {fileID: 0}

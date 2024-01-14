@@ -15,9 +15,9 @@ GameObject:
   - component: {fileID: 7053351079619607193}
   - component: {fileID: 5148794002052159293}
   - component: {fileID: 1677807044205000229}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Svarozic4
-  m_TagString: Untagged
+  m_TagString: Svarozic
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -393,7 +393,7 @@ GameObject:
   - component: {fileID: 5017757269033438510}
   - component: {fileID: 4011506615284593043}
   - component: {fileID: 1361760438081845416}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}

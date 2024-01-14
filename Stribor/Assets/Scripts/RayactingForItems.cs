@@ -42,8 +42,20 @@ public class RaycastingForItems : MonoBehaviour
 
     private VrijemeSkripta vrijeme;
 
+    LayerMask vrataMask;
 
-    public List<GameObject> ListaUpgradePointovaISistema; //Lista koja sadrzi objekte, objekt1 je stvar na koju ce igrac moci kliknuti, a index+1 je particle sistem za to
+    private GameObject vrata;
+
+    LayerMask jelenMask;
+
+    private GameObject jelen;
+
+    private GameObject item;
+
+    LayerMask itemMask;
+
+
+    public List<GameObject> ListaUpgradePointovaISistema; //Lista koja sadrzi objekte, objekt1 su stvaru na koju ce igrac moci kliknuti, a index+1 je particle sistem za to
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -54,173 +66,143 @@ public class RaycastingForItems : MonoBehaviour
         svarozicUpgradeMask = LayerMask.GetMask("SvarozicUpgrade");
         brojJelenica = 0;
         vrijeme = vrijemeObjekt.GetComponent<VrijemeSkripta>();
+        vrataMask = LayerMask.GetMask("Vrata");
+        jelenMask = LayerMask.GetMask("Jelen");
+        itemMask = LayerMask.GetMask("Item");
+
     }
 
-    // Update is called once per frame
+    void HandleajIteme(GameObject hitObject) {
 
-     void Update() {
-
-        RaycastHit hit;
-
-        //provjera za jelenice
-
+        hitObject.gameObject.GetComponent<Outline>().enabled = true;
+        bool skupi = Input.GetKeyDown(pickUpKey);
         
 
-        if (Physics.Raycast(ociLevel.position, Camera.main.transform.forward, out hit, 2, maskJelenice)) {
-            //skupi jelenicu
-            //Debug.Log("Raycast hit");
+        tooltips.enabled = true;
 
-            trenutnaJelenica = hit.transform.gameObject;
-
-            //stvori outline jelenice
-            hit.transform.gameObject.GetComponent<Outline>().enabled = true;
-
-            Debug.DrawRay(ociLevel.position, Camera.main.transform.forward * hit.distance, Color.yellow, 2);
-
-            tooltips.text = "(" + pickUpKey.ToString() + ") Skupi jelenicu";
-
-            tooltips.enabled = true;
-
-
-            //promijeni boju, kasnije ce biti outline i dopustiti skupljanje
-
-            if (Input.GetKeyDown(pickUpKey)) {
-
-                brojJelenica += 1;
-                JeleniceTekst.text = "Jelenice X " + brojJelenica;
-
-                hit.collider.gameObject.SetActive(false);
-
-                Debug.Log("Jelenica skupljena");
-
-                tooltips.enabled = false;
-
-                vrijeme.PromijeniVrijeme(brojJelenica);
-
-            }
-
+        switch(hitObject.tag) {
             
-
-
-        } else if(trenutnaJelenica != null) {
-
-            if (trenutnaJelenica.GetComponent<Outline>().enabled) {
-
-                trenutnaJelenica.GetComponent<Outline>().enabled = false;
-                tooltips.enabled = false;
-            }
-
-            
-        }
-
-        //provjera za hideable objekte
-
-        LayerMask maskHideable = LayerMask.GetMask("Hideable");
-
-        if (Physics.Raycast(ociLevel.position, Camera.main.transform.forward, out hit, 4, maskHideable)) {
-
-            //pogodio je hideable sada se treba onak sakriti
-
-            trenutniHideable = hit.transform.gameObject;
-
-            //stvori outline stvari
-            hit.transform.gameObject.GetComponent<Outline>().enabled = true;
-
-            if (Input.GetKeyDown(pickUpKey)) {
-
-                Debug.Log("Sakrio se buraz");
-                trenutniHideable.GetComponent<HideableObject>().Hide(player.transform);
-            }
-
-        } else if(trenutniHideable != null) {
-
-            if (trenutniHideable.GetComponent<Outline>().enabled) {
-
-                trenutniHideable.GetComponent<Outline>().enabled = false;
-            }
-
-            
-        }
-
-        if (Physics.Raycast(ociLevel.position, Camera.main.transform.forward, out hit, 2, svarozicMask)) {
-
-            //udario le svarozica, skupi ga
-
-            Svarozic = hit.transform.gameObject;
-
-            Svarozic.GetComponent<Outline>().enabled = true;
-
-            tooltips.enabled = true;
-            tooltips.text = "(" + pickUpKey.ToString() + ") Skupi svarožića";
-
-            if (Input.GetKeyDown(pickUpKey)) {
-
-                svarozicSkripta.BrojSvarozica += 1;
-                svarozicSkripta.SvaroziciTekst.text = "Svarozici: " + svarozicSkripta.BrojSvarozica;
-
-
-                //UNISTENJE
-                Destroy(Svarozic);
-                Svarozic = null;
-
-                Debug.Log("Svarozic skupljen");
-                tooltips.enabled = false;
-
-            }
-
-        } else if(Svarozic != null) {
-
-            if (Svarozic.GetComponent<Outline>().enabled) {
-
-                Svarozic.GetComponent<Outline>().enabled = false;
-                tooltips.enabled = false;
-            }
-        
-        }
-
-        if (Physics.Raycast(ociLevel.position, Camera.main.transform.forward, out hit, 2, svarozicUpgradeMask)) {
-
-            //stisce li igrac E
-
-            svarozicStation = hit.transform.gameObject;
-
-            svarozicStation.GetComponent<Outline>().enabled = true;
-
-            tooltips.enabled = true;
-            tooltips.text = "(" + pickUpKey.ToString() + ") Aktiviraj kamin";
-
-            if (Input.GetKeyDown(pickUpKey) && !svarozicSkripta.SvarozicUgasen) {
-                //nasao je neki upgrade station
-                int indexStationa = ListaUpgradePointovaISistema.IndexOf(hit.transform.gameObject);
+            case "SvarozicUpgrade":
+            if (skupi) {
+                int indexStationa = ListaUpgradePointovaISistema.IndexOf(hitObject);
 
                 //Lansiraj particle i upgradeaj svarozica i iskljuci kamin upgrade
 
                 upgradeSvarozica = ListaUpgradePointovaISistema[indexStationa + 1].GetComponent<ParticleSystem>();
 
-                hit.transform.gameObject.SetActive(false);
+                hitObject.transform.gameObject.SetActive(false);
 
                 upgradeSvarozica.Play();
 
                 upgradeSvarozica.gameObject.GetComponent<AudioSource>().Play();
 
                 svarozicSkripta.UpgradeSvarozic();
+            }
+            tooltips.text = "(" + pickUpKey.ToString() + ") Aktiviraj kamin";
+            break;
+            
+            case "Jelenica":
+            tooltips.text = "(" + pickUpKey.ToString() + ") Skupi jelenicu";
+            if (skupi) {
+                brojJelenica += 1;
+                JeleniceTekst.text = "Jelenice X " + brojJelenica;
 
-                tooltips.enabled = false;
+                hitObject.SetActive(false);
+
+                Debug.Log("Jelenica skupljena");
+
+                vrijeme.PromijeniVrijeme(brojJelenica);
+            }
+            break;
+
+            case "Svarozic":
+            tooltips.text = "(" + pickUpKey.ToString() + ") Skupi svarožića";
+            if (skupi) {
+                svarozicSkripta.BrojSvarozica += 1;
+                svarozicSkripta.SvaroziciTekst.text = "Svarozici: " + svarozicSkripta.BrojSvarozica;
+
+
+                //UNISTENJE
+                Destroy(hitObject);
+                hitObject = null;
+
+                Debug.Log("Svarozic skupljen");
+            }
+            break;
+
+            case "VrataKamenolom":
+            tooltips.text = "(" + pickUpKey.ToString() + ") Otvori vrata kamenoloma";
+            if (skupi && ProstorEnums.striborProgress == ProstorEnums.StriborProgression.SkupioKljuc) {
                 
 
+                //otvori vrata kamenoloma
+                hitObject.SetActive(false);
+                
+        
             }
+            break;
+
+            case "Jelen":
+            tooltips.text = "(" + pickUpKey.ToString() + ") Skupi jelena";
+            if (skupi && ProstorEnums.striborProgress == ProstorEnums.StriborProgression.SkupioKljuc) {
+                hitObject.SetActive(false);
+
+                ProstorEnums.striborProgress = ProstorEnums.StriborProgression.SkupioJelena;
+            }
+            break;
+
+            case "Hideable":
+            tooltips.text = "(" + pickUpKey.ToString() + ") Sakrij se";
+            if (skupi) {
+                Debug.Log("Sakrio se buraz");
+                hitObject.GetComponent<HideableObject>().Hide(player.transform);
+            }
+            break;
+
+            case "Kljuc":
+            tooltips.text = "(" + pickUpKey.ToString() + ") Skupi ključ";
+            if (skupi) {
+                hitObject.SetActive(false);
+                ProstorEnums.striborProgress = ProstorEnums.StriborProgression.SkupioKljuc;
+            }
+            break;
+
+            default: //za sve Skupi stvari, jelenice, jelen, kljuc, svarozic...
+                tooltips.text = "(" + pickUpKey.ToString() + ") Skupi " + hitObject.tag;
+            break;
+
+        }
+
+
+
+    }
+
+    // Update is called once per frame
+
+     void Update() {
+        
+
+        RaycastHit hit;
+
+        //provjera za iteme
+
+        if (Physics.Raycast(ociLevel.position, Camera.main.transform.forward, out hit, 2, itemMask)) {
+            Debug.DrawRay(ociLevel.position, Camera.main.transform.forward * hit.distance, Color.yellow, 2);
+            item = hit.transform.gameObject;
+
+            HandleajIteme(item);
+
+        } else {
             
-
-
-
-
-        } else if (svarozicStation != null) {
-            if (svarozicStation.GetComponent<Outline>().enabled) {
-
-                svarozicStation.GetComponent<Outline>().enabled = false;
+            if (item != null) {
+                item.gameObject.GetComponent<Outline>().enabled = false;
+                item = null;
                 tooltips.enabled = false;
             }
+            
         }
+
+
 
     }
 

@@ -36,7 +36,9 @@ public class HideableObject : MonoBehaviour
 
         playerController.gameObject.transform.GetComponent<CustomGravity>().gravityScale = 0;
 
-        playerController.gameObject.transform.GetComponent<Rigidbody>().velocity = new Vector3(0, 0);
+        playerController.gameObject.transform.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
+
+        playerController.isWalking = false;
 
         playerController.playerCanMove[1] = false;
 
