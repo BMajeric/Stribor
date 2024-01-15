@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 1677807044205000229}
   - component: {fileID: 6965464224844753810}
   - component: {fileID: 5531759316384897924}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: SvarozicInWorld
   m_TagString: Svarozic
   m_Icon: {fileID: 0}
@@ -425,7 +425,7 @@ GameObject:
   - component: {fileID: 5017757269033438510}
   - component: {fileID: 4011506615284593043}
   - component: {fileID: 1361760438081845416}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}

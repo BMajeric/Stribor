@@ -57,7 +57,7 @@ public class FirstPersonController : MonoBehaviour
 
     #region Movement Variables
 
-    public bool playerCanMove = true;
+    public List<bool> playerCanMove = new List<bool>();
     public float walkSpeed = 5f;
     public float maxVelocityChange = 10f;
 
@@ -101,7 +101,7 @@ public class FirstPersonController : MonoBehaviour
     public float jumpPower = 5f;
 
     // Internal Variables
-    private bool isGrounded = false;
+    public bool isGrounded = false;
 
     #endregion
 
@@ -114,7 +114,7 @@ public class FirstPersonController : MonoBehaviour
     public float speedReduction = .5f;
 
     // Internal Variables
-    private bool isCrouched = false;
+    public bool isCrouched = false;
     private Vector3 originalScale;
 
     #endregion
@@ -132,6 +132,8 @@ public class FirstPersonController : MonoBehaviour
     private float timer = 0;
 
     //Stribor varijable
+
+    public bool Jumped = false;
 
     public int BrojJelenica = 0;
 
@@ -157,6 +159,11 @@ public class FirstPersonController : MonoBehaviour
         playerCamera.fieldOfView = fov;
         originalScale = transform.localScale;
         jointOriginalPos = joint.localPosition;
+
+        playerCanMove.Insert(0, true);//slope provjera
+        playerCanMove.Insert(1, true);//hiding provjera
+        playerCanMove.Insert(2, true); //umro provjera
+        
 
         if (!unlimitedSprint)
         {
@@ -347,6 +354,7 @@ public class FirstPersonController : MonoBehaviour
         // Gets input and calls jump method
         if(enableJump && Input.GetKeyDown(jumpKey) && isGrounded)
         {
+            
             Jump();
         }
 
@@ -391,7 +399,7 @@ public class FirstPersonController : MonoBehaviour
 
         //Check if player is on a steep slope and if he is, disable movement
 
-        if (playerCanMove)
+        if (!playerCanMove.Contains(false))
         {
             // Calculate how fast we should be moving
             Vector3 targetVelocity = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
@@ -548,6 +556,7 @@ public class FirstPersonController : MonoBehaviour
         } else 
         {
             isGrounded = false;
+            Jumped = false;
         }
         
 
@@ -557,6 +566,7 @@ public class FirstPersonController : MonoBehaviour
 
     private void Jump()
     {
+        Jumped = true;
         // Adds force to the player rigidbody to jump
         if (isGrounded)
         {
@@ -578,7 +588,7 @@ public class FirstPersonController : MonoBehaviour
         if(isCrouched)
         {
             transform.localScale = new Vector3(originalScale.x, originalScale.y, originalScale.z);
-            walkSpeed /= speedReduction;
+            walkSpeed = 5f;
 
             isCrouched = false;
         }
@@ -587,7 +597,7 @@ public class FirstPersonController : MonoBehaviour
         else
         {
             transform.localScale = new Vector3(originalScale.x, crouchHeight, originalScale.z);
-            walkSpeed *= speedReduction;
+            walkSpeed = 2.5f;
 
             isCrouched = true;
         }
@@ -715,9 +725,7 @@ public class FirstPersonController : MonoBehaviour
         GUILayout.Label("Movement Setup", new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter, fontStyle = FontStyle.Bold, fontSize = 13 }, GUILayout.ExpandWidth(true));
         EditorGUILayout.Space();
 
-        fpc.playerCanMove = EditorGUILayout.ToggleLeft(new GUIContent("Enable Player Movement", "Determines if the player is allowed to move."), fpc.playerCanMove);
-
-        GUI.enabled = fpc.playerCanMove;
+        
         fpc.walkSpeed = EditorGUILayout.Slider(new GUIContent("Walk Speed", "Determines how fast the player will move while walking."), fpc.walkSpeed, .1f, fpc.sprintSpeed);
         GUI.enabled = true;
 

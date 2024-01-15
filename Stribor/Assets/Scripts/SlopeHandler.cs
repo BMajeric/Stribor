@@ -26,10 +26,10 @@ public class SlopeHandler : MonoBehaviour
     private void FixedUpdate() {
 
         if (OnSteepSlope()) {
-            fpc.playerCanMove = false;
+            fpc.playerCanMove[0] = false;
             fpc.enableJump = false;
         } else {
-            fpc.playerCanMove = true;
+            fpc.playerCanMove[0] = true;
             fpc.enableJump = true;
         }
         
