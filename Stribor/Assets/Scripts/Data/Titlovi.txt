@@ -1,218 +1,173 @@
-//PRAVE LINIJE NE SMIJU IMAT KOSE CRTE, prva sekcija je za bitne informacije pa GOTOVO, pa korisne etc. space je za izmedu kljuceva, kljucevi se pisu malim slovom
+//PRAVE LINIJE NE SMIJU IMAT KOSE CRTE, prva sekcija je za bitne informacije pa GOTOVO, pa korisne etc. space je za izmedu kljuceva, kljucevi se pisu kao u definiciji podrucja
 
-tamnaSuma
+TamnaSuma
 Ako ima nevolje, u tamnoj šumi je najbolje mirovati.
 
-poljana
+Poljana
 Pazi, guja nas lako vidi na otvorenoj poljani!
 
-spilja
+Spilja
 Blizu je Striborova špilja, unutra smiješ samo jahajući jelena.
 
-lovackaKuca
+LovackaKuca
 
-jezero
+Jezero
 
-velikoDrvo
+VelikoDrvo
 
-brdo
+Brdo
 
-crkva
+Crkva
 
-kamenolom
+Kamenolom
 Vrata kamenoloma su zaključana, ali sva vrata imaju ključ!
 
-prijeKljuca
+PrijeKljuca
 Govorilo se da je guja ukrala ključ starom svjetioničaru. Pitam se gdje bi mogao biti.
 
-skupioKljuc
+SkupioKljuc
 Ključ od kamenoloma! Vrijedan je, otvara vrata starih rudara.
 
-skupioJelena
+SkupioJelena
 Jelen ne izgleda najbolje, no starješina Stribor će poštovati trud.
 
-pricaoSaStriborom
+PricaoSaStriborom
 Mudar je Stribor, ojačao je Domaće!
 
-bezUpgradea
+BezUpgradea
 Domaći izlaze iz žeravice i ognjišta, ako pronađeš nešto slično samo nas baci unutra!
 
-nakonPrvogUpgradea
+NakonPrvogUpgradea
 Već se osjećam bolje, možeš li osjetiti toplinu?
 
-nakonDrugogUpgradea
+NakonDrugogUpgradea
 Još malo i guja će se bojati nas!
 
-nakonTrecegUpgradea
+NakonTrecegUpgradea
 Hajdemo do starješine Stribora, on će nam pomoći osvijetliti tamnu šumu!
 
-umroJednom
+UmroJednom
 Stribora mi! Nisam uopće očekivao guju! Čini se da nas je ostavila na miru, trebamo što brže pronaći jelenice.
 
-umroDvaput
+UmroDvaput
 Uhvatila nas guja, ali mi Domaći imamo par trikova! Nažalost par jelenica nam je pobjeglo...
 
-umroTriput
+UmroTriput
 Pazi se! Nemamo još puno snage, sljedeći put može biti koban.
 
 kretanje
 Hajde šprintajmo, možemo mi to malo brže.
 
-svarozici
-Svarožići se okupljaju oko toplih mjesta, sigurno ćeš naš vidjeti u neprirodnoj tami čarobne šume.
+Svarozici
+Domaći se okupljaju oko toplih mjesta, sigurno ćeš naš vidjeti u neprirodnoj tami čarobne šume.
 
-jelenice
+Jelenice
 Jelenice češ pronaći posvuda po čarobnoj šumi, treba samo pažljivo gledati.
 
-izbjegavanjeNeprijatelja
+IzbjegavanjeNeprijatelja
 Budi tih i oprezan, gujina bahatost znači da vidi samo arogantne.
 
-izbjegavanjeNeprijateljaUTamnojSumi
+IzbjegavanjeNeprijateljaUTamnojSumi
 Ako osjetiš mrki pogled zvijeri na sebi, prestani se kretati!
 
-skrivanje
+Skrivanje
 Priroda nam može pomoći u skrivanju od guje, samo ugasi moje svijetlo prije!
 Ostavštine stanovnika šume nam mogu pomoći uteći od guje. Mudro ih je koristiti.
 
-objasnjavanjeSistemaIgre
+ObjasnjavanjeSistemaIgre
 Koristi svoju zviždaljku da uhvatiš oprezne jelenice. Zgrabi ih prije nego uteknu!
 
 GOTOVO bitne informacije
 
-tamnaSuma
+TamnaSuma
 Načuo sam da u tamnoj šumi obitava zlo stvorenje mrka pogleda.
 Neke jelenice vole tamu, čini mi se da ćemo morati ući za njima.
 Moje svijetlo nije dovoljno jako za magiju tamne šume, moram postati sjajniji.
 
-poljana
+Poljana
 Dimovi kotla se vide iz mnogih dijelova šume. Mudro ih je tražiti.
 Kada uhvatimo sve jelenice, skuhati ćemo juhu i izliječiti šumu!
 
-spilja
+Spilja
 Stribor sjedi u njegovoj špilji, uskoro ćemo morati do starješine.
 Zvukovi jeke, hladan vjetar. Blizu smo špilje starješine Stribora.
 
-lovackaKuca
+LovackaKuca
 Dom upornog lovca je blizu, njegove priče su uvijek bile najbolje.
 Šumarak oko kuće upornog lovca nam može pomoći u skrivanju od guje.
 
-jezero
+Jezero
 Stari čarobni svjetionik još je tamo, ali gdje je stari svjetioničar?
 Načuo sam nezgode starog svjetioničara, njegove priče bi nam uvijek zatamnile svijetlo.
 
-velikoDrvo
+VelikoDrvo
 Mudri hrast je blizu! Ako staneš, upiti ćeš mnoge mudrosti i čarolije.
 Jelenice obožavaju mudri hrast, možda ih možemo pronaći u blizini.
 
-brdo
+Brdo
 Stari metalni toranj se vidi na visokom brdu, koja mu je svrha?
 Osjećam metalni miris u blizini, pitam se osjećaju li i jelenice.
 
-crkva
+Crkva
 Napuštena drevna crkva je blizu, možemo zatražiti pomoć.
 
-kamenolom
+Kamenolom
 Ne sjećam se da je kamenolom imao ogradu, zanimljivo.
 
-prijeKljuca
+BezUpgradea
+Osjećam se slabo, možemo li pronaći neku luč?
 
-skupioKljuc
+UmroJednom
+Budi oprezan, ne znam koliko još možemo nadmudriti guju.
 
-skupioJelena
+Svarozici
+Guja je začarala našu čarobnu šumu, moramo je uništiti.
 
-pricaoSaStriborom
+Jelenice
+Jelenice se posvuda okupljaju, vidim jednu iza nas.
 
-bezUpgradea
+IzbjegavanjeNeprijatelja
+Nemoj previše trčati, uznemirit češ mirnu šumu.
 
-nakonDrugogUpgradea
+IzbjegavanjeNeprijateljaUTamnojSumi
+Kada ga vidiš, uzvrati mu pogled.
 
-nakonTrecegUpgradea
-
-nakonPosljednjegUpgradea
-
-umroJednom
-
-umroDvaput
-
-umroTriput
-
-kretanje
-
-svarozici
-
-jelenice
-
-izbjegavanjeNeprijatelja
-
-izbjegavanjeNeprijateljaUTamnojSumi
-
-skrivanje
-
-objasnjavanjeSistemaIgre
+Skrivanje
+Često sam se skrivao u gustom grmlju, možeš i ti.
 
 GOTOVO korisne informacije
 
-tamnaSuma
+TamnaSuma
 Bojim se tamne šume.
 
-poljana
+Poljana
 Obožavam ubirati cvijeće na ovoj livadi, tratinčice su mi posebno drage.
 
-spilja
+Spilja
 Jednom sam se spotaknuo na kamen u špilji i smijeh Domaćih je odzvanjao cijelu noć.
 
-lovackaKuca
+LovackaKuca
 Bio sam u lovu sa upornim lovcem, nije mi se svidjelo....
 
-jezero
+Jezero
 Mogao sam se skrivati u bradi starog svijetioničara, dobra stara vremena.
 
-velikoDrvo
+VelikoDrvo
 Hej vidiš li onu granu tamo, ta mi je omiljena, ima najbolji pogled.
 
-brdo
+Brdo
 Ljudi koji su radili metalni toranj nisu se uopće obazirali na čarolije, čudno.
 Nekada čujem nepoznate zvukove blizu brda, zla magija izlazi iz metala.
 
-crkva
+Crkva
 Svećenika je odavno istjerala čarolija šume no crkva još uvijek stoji.
 
-kamenolom
-Kad razmislim, ne sjećam se tko je iskopao kamenolom niti za što je kopano, hmmm....
+Kamenolom
+Kad razmislim, ne sjećam se tko je iskopao kamenolom niti zašto je kopano, hmmm....
 
-prijeKljuca
+Svarozici
+To sam ja Malik Tintilinić!
+E moj Potješe, da vidimo kako ćeš izaći na kraj sa istinom.
 
-skupioKljuc
-
-skupioJelena
-
-pricaoSaStriborom
-
-bezUpgradea
-
-nakonDrugogUpgradea
-
-nakonTrecegUpgradea
-
-nakonPosljednjegUpgradea
-
-umroJednom
-
-umroDvaput
-
-umroTriput
-
-kretanje
-
-svarozici
-
-jelenice
-
-izbjegavanjeNeprijatelja
-
-izbjegavanjeNeprijateljaUTamnojSumi
-
-skrivanje
-
-objasnjavanjeSistemaIgre
-
+Jelenice
+Mmmmm juha od jelenica...

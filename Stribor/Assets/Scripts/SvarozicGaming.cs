@@ -199,7 +199,7 @@ public class SvarozicGaming : MonoBehaviour
 
         BrojSvarozica -= 1;
 
-        SvaroziciTekst.text = "Svarozici: " + BrojSvarozica;
+        SvaroziciTekst.text = "Domaći: " + BrojSvarozica;
 
     }
 }

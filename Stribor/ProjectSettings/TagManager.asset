@@ -13,6 +13,7 @@ TagManager:
   - SvarozicUpgrade
   - Jelen
   - Kljuc
+  - Titlovi
   layers:
   - Default
   - TransparentFX
