@@ -99,7 +99,7 @@ public class SvarozicGaming : MonoBehaviour
 
         if (Input.GetKeyDown(BaciSvarozicaGumb) && BrojSvarozica > 1 && SvarozicURuci.activeSelf) {
             LansirajSvarozica();
-            UpgradeSvarozic();
+            //UpgradeSvarozic();
             //gej
         }
 

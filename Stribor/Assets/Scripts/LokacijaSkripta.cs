@@ -49,8 +49,13 @@ public class LokacijaSkripta : MonoBehaviour
             //ukljuci sve titlove od ovog podrucja
             
             titlovi.ukljuciTitlove(lokacijaSkripte.ToString());
+
+            if (lokacijaSkripte == ProstorEnums.Lokacija.Jezero && ProstorEnums.striborProgress == ProstorEnums.StriborProgression.NemaKljuca && !titlovi.iskoristeniBitniKljucevi.Contains("PrijeKljuca")) {
+                titlovi.ukljuciTitlove("PrijeKljuca");
+            }
+
             foreach (string lokacija in susjednaPodrucja[lokacijaSkripte.ToString()]) {
-                Debug.Log(lokacija);
+                //Debug.Log(lokacija);
                 titlovi.ukljuciTitlove(lokacija);
             }
            

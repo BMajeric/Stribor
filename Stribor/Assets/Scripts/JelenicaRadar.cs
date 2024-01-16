@@ -12,6 +12,8 @@ public class JelenicaRadar : MonoBehaviour
     float cooldownTime = 5.0f;
     float lastUsed;
 
+    public KeyCode radarKey;
+
     UniversalRendererData universalRendererData;
 
     public ScriptableRendererFeature jelenicaOccluded;
@@ -23,12 +25,13 @@ public class JelenicaRadar : MonoBehaviour
     {
         radar = GetComponent<ParticleSystem>();
         zvukRadara = GetComponent<AudioSource>();
+        radarKey = KeyCode.G;
     }
 
     // Update is called once per frame
     private void Update() {
         
-        if (Input.GetKeyDown(KeyCode.G) && Time.time > lastUsed + cooldownTime) {
+        if (Input.GetKeyDown(radarKey) && Time.time > lastUsed + cooldownTime) {
             radar.Play();
 
             //zvukRadara.Play();

@@ -25,13 +25,19 @@ public class Titlovi : MonoBehaviour
 
     public List<string> ukljuceniTitlovi = new List<string>(); //ostali titlovi, korisni ilki nebitni koji ce se random vaditi kada nema bitnih
 
+    public List<string> ukljuceniTitloviPocetak = new List<string>();
+
     public List<string> biljeske = new List<string>(); //korisni titlovi ce biti zapisani u biljeske za kasnije gledanje
 
-    List<string> iskoristeniBitniKljucevi = new List<string>(); //iskoristeni kljucevi bitnih informacija da se ne ponavljaju
+    public List<string> iskoristeniBitniKljucevi = new List<string>(); //iskoristeni kljucevi bitnih informacija da se ne ponavljaju
 
     float cooldown = 10f; //cooldown za hintovea
 
-    float cooldownStart; 
+    float cooldownStart;
+
+    bool pocetak = true;
+
+    public bool mozeTitlovati;
 
 
     void popuniDict() {
@@ -97,20 +103,20 @@ public class Titlovi : MonoBehaviour
             if (!iskoristeniBitniKljucevi.Contains(kljuc)) {
                 bitniUkljuceniTitlovi.AddRange(bitneInformacije[kljuc]);
                 iskoristeniBitniKljucevi.Add(kljuc);
-                Debug.Log("Dodao " + kljuc + " bitne informacije");
+                //Debug.Log("Dodao " + kljuc + " bitne informacije");
             }
             
         }
 
         if (korisneInformacije.ContainsKey(kljuc)) {
-            Debug.Log("Dodao " + kljuc + " korisne informacije");
+            //Debug.Log("Dodao " + kljuc + " korisne informacije");
             foreach (string linija in korisneInformacije[kljuc]) {
                 ukljuceniTitlovi.Add(linija);
             }
         }
 
         if (nebitneInformacije.ContainsKey(kljuc)) {
-            Debug.Log("Dodao " + kljuc + " nebitne informacije");
+            //Debug.Log("Dodao " + kljuc + " nebitne informacije");
             foreach (string linija in nebitneInformacije[kljuc]) {
                 ukljuceniTitlovi.Add(linija);
             }
@@ -141,17 +147,30 @@ public class Titlovi : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Subtitles.subtitles.typeSpeed = 0.1f;
-        Subtitles.Show("Pocetak titlovanja", 8f, SubtitleEffect.Both, 25);
+        Subtitles.subtitles.typeSpeed = 0.05f;
+        //Subtitles.Show("Pocetak titlovanja", 8f, SubtitleEffect.Both, 25);
 
         svarozicSkripta = GameObject.FindGameObjectWithTag("Player").GetComponent<SvarozicGaming>();
 
         startTime = Time.time;
 
         cooldownStart = Time.time;
+        pocetak = true;
+        mozeTitlovati = false;
 
         popuniDict();
-       
+
+        ukljuciTitlove("Svarozici");
+        ukljuciTitlove("Jelenice");
+        ukljuciTitlove("IzbjegavanjeNeprijatelja");
+        ukljuciTitlove("ObjasnjavanjeSistemaIgre");
+        ukljuciTitlove("Skrivanje");
+        ukljuciTitlove("BezUpgradea");
+
+        foreach (string linija in korisneInformacije["PocetakIgre"]) {
+            ukljuceniTitloviPocetak.Add(linija);
+        }
+
     }
 
     
@@ -160,9 +179,12 @@ public class Titlovi : MonoBehaviour
     void Update()
     {
         //svakih 2 minute ispali neki random voice line
+        
         currentTime = Time.time - startTime;
+        
+        
 
-        if (currentTime > automatskiHintTime && !svarozicSkripta.SvarozicUgasen) {
+        if (currentTime > automatskiHintTime && !svarozicSkripta.SvarozicUgasen && !pocetak) {
             //ispali neki hint iz korisnih i nebitnih hintova
             if (ukljuceniTitlovi.Count > 0) {
                 int random = Random.Range(0, ukljuceniTitlovi.Count);
@@ -179,7 +201,7 @@ public class Titlovi : MonoBehaviour
 
         //ispali voice line ako stisnes H
 
-        if (Input.GetKeyDown(hint) && !svarozicSkripta.SvarozicUgasen && Time.time - cooldownStart > cooldown) {
+        if (Input.GetKeyDown(hint) && !svarozicSkripta.SvarozicUgasen && Time.time - cooldownStart > cooldown && !pocetak) {
             //Ispali neki random voice line, korisni ako ih ima
             if (bitniUkljuceniTitlovi.Count > 0) {
                 int random = Random.Range(0, bitniUkljuceniTitlovi.Count);
@@ -204,8 +226,20 @@ public class Titlovi : MonoBehaviour
                 Subtitles.Show("Nemam ništa za reći, idemo dalje.", 5f, SubtitleEffect.Both, 25);
             }
             cooldownStart = Time.time;
+        } else if (Input.GetKeyDown(hint) && !svarozicSkripta.SvarozicUgasen && Time.time - cooldownStart > cooldown && pocetak && mozeTitlovati) {
+
+            //pali hintove samo iz pocetnih hintova
+            int random = Random.Range(0, ukljuceniTitloviPocetak.Count);
+            string odabraniTitl = ukljuceniTitloviPocetak[random];
+
+            startTime = Time.time;
+
+            Subtitles.Show(odabraniTitl, 5f, SubtitleEffect.Both, 25);
+
         }
     }
+
+
 
 
 
