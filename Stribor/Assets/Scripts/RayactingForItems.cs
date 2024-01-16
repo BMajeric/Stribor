@@ -195,8 +195,9 @@ public class RaycastingForItems : MonoBehaviour
             if (item != null) {
                 item.gameObject.GetComponent<Outline>().enabled = false;
                 item = null;
-                tooltips.enabled = false;
+                
             }
+            tooltips.enabled = false;
             
         }
 

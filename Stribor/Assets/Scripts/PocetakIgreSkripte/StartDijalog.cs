@@ -9,6 +9,16 @@ public class StartDijalog : MonoBehaviour
     int brojac = 0;
 
     bool trigerao = false;
+
+    public GameObject start;
+
+
+
+    private void Update() {
+        if (Input.GetKeyDown(KeyCode.O)) {
+            start.GetComponent<ZapocniIgru>().enabled = true;
+        }
+    }
    
    private void OnTriggerEnter(Collider other) {
     

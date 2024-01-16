@@ -35,7 +35,7 @@ public class Titlovi : MonoBehaviour
 
     float cooldownStart;
 
-    bool pocetak = true;
+    public bool pocetak = true;
 
     public bool mozeTitlovati;
 
