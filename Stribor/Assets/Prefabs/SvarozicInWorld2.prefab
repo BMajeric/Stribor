@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 6965464224844753810}
   - component: {fileID: 5531759316384897924}
   m_Layer: 13
-  m_Name: SvarozicInWorld
+  m_Name: SvarozicInWorld2
   m_TagString: Svarozic
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -459,8 +459,8 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 0.9716981, g: 0.7169616, b: 0.47209862, a: 1}
-  m_Intensity: 40
-  m_Range: 50
+  m_Intensity: 25
+  m_Range: 75
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10

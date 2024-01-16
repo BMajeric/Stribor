@@ -13877,6 +13877,11 @@ MonoBehaviour:
   - {fileID: 1083386404}
   - {fileID: 2013389707}
   - {fileID: 354432653}
+  SvaroziciBacanje:
+  - {fileID: 6570254738264066211, guid: 289c95d76aa6f634b8dd3d8714ad0fe5, type: 3}
+  - {fileID: 6570254738264066211, guid: 26d1e7249e8dcf74aa900947e8dafc5a, type: 3}
+  - {fileID: 6570254738264066211, guid: 0aff2f56156dfaa4ebbe1e4aa1017e05, type: 3}
+  - {fileID: 6570254738264066211, guid: a9e4af368e324ce4890993afab5903ae, type: 3}
   SvarozicURuci: {fileID: 0}
   SvarozicUgasen: 0
   BaciSvarozicaGumb: 323

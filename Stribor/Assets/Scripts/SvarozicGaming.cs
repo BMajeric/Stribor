@@ -25,6 +25,8 @@ public class SvarozicGaming : MonoBehaviour
 
     public List<GameObject> SvarozicSnage;
 
+    public List<GameObject> SvaroziciBacanje;
+
     private List<(float intenzitet, float domet)> ListaZaSvarozice = new List<(float, float)>(); //lista koja sprema intenzitete i range svarozica na pocetku igre
 
     public GameObject SvarozicURuci;
@@ -70,6 +72,8 @@ public class SvarozicGaming : MonoBehaviour
         SvaroziciTekst.text = "Svarozici: " + BrojSvarozica;
 
         SvarozicURuci = SvarozicSnage[0];
+
+        SvarozicPrefab = SvaroziciBacanje[0];
 
         SvarozicSvijetlo = SvarozicURuci.transform.Find("Light").GetComponent<Light>();
 
@@ -122,6 +126,7 @@ public class SvarozicGaming : MonoBehaviour
             //napravi neku animaciju
             SvarozicURuci.SetActive(false);
             SvarozicURuci = SvarozicSnage[index + 1];
+            SvarozicPrefab = SvaroziciBacanje[index + 1];
             SvarozicURuci.SetActive(true);
             SvarozicSvijetlo = SvarozicURuci.transform.Find("Light").GetComponent<Light>();
         }
