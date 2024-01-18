@@ -5,7 +5,7 @@ using UnityEngine;
 public class MicrophonePickup : MonoBehaviour
 {
     public int sampleWindow = 64;
-    private AudioClip microphone;
+    private AudioClip microphoneClip;
     private string micname;
 
     private void MicrophoneAudioClip(int micIndex)
@@ -17,7 +17,7 @@ public class MicrophonePickup : MonoBehaviour
         foreach (var ind in Microphone.devices)
         {
             int micPos = Microphone.GetPosition(ind);
-            try { microphone.GetData(waveData, micPos); }
+            try { microphoneClip.GetData(waveData, micPos); }
             catch { }
 
             for (int i = 0; i < 128; i++) {
@@ -44,12 +44,12 @@ public class MicrophonePickup : MonoBehaviour
             micname = Microphone.devices[pos];
         }
 ;
-        microphone = Microphone.Start(micname, true, 20, AudioSettings.outputSampleRate);
+        microphoneClip = Microphone.Start(micname, true, 20, AudioSettings.outputSampleRate);
     } 
 
     public float getLoudnessFromMic()
     {
-        return GetLoudnessAudioClip(Microphone.GetPosition(micname), microphone);
+        return GetLoudnessAudioClip(Microphone.GetPosition(micname), microphoneClip);
     }
 
     private void Start()
@@ -68,9 +68,9 @@ public class MicrophonePickup : MonoBehaviour
 
         float loudness = 0;
 
-        foreach (int i in wave)
+        for (int i = 0; i < sampleWindow; i++)
         {
-            loudness += Mathf.Abs(i);
+            loudness += Mathf.Abs(wave[i]);
         }
 
         return loudness / sampleWindow;
