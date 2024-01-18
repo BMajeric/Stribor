@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(AudioSource))]
 public class PlayVoiceIntro : MonoBehaviour
@@ -23,5 +24,7 @@ public class PlayVoiceIntro : MonoBehaviour
         yield return new WaitForSeconds(audio.clip.length);
         audio.clip = engineLoopClip;
         audio.Play();
+        yield return new WaitForSeconds(audio.clip.length);
+        SceneManager.LoadScene("SampleScene");
     }
 }
