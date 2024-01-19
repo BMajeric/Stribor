@@ -15,6 +15,10 @@ public class HideableObject : MonoBehaviour
     //za postaviti igraca
     public Transform hidingPos;
 
+    CapsuleCollider playerCollider1;
+
+    CapsuleCollider playerCollider2;
+
     bool isHiding;
     // Start is called before the first frame update
     void Start()
@@ -22,6 +26,8 @@ public class HideableObject : MonoBehaviour
         gameObject.GetComponent<Outline>().enabled = false;
         isHiding = false;
         playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<FirstPersonController>();
+        playerCollider1 = GameObject.FindGameObjectWithTag("Player").GetComponent<CapsuleCollider>();
+        playerCollider2 = GameObject.FindGameObjectWithTag("Player").transform.Find("Collider2").GetComponent<CapsuleCollider>();
     }
 
     // Update is called once per frame
@@ -42,7 +48,14 @@ public class HideableObject : MonoBehaviour
 
         playerController.playerCanMove[1] = false;
 
+        playerController.enableCrouch = false;
+
         playerController.gameObject.transform.position = hidingPos.position;
+
+        this.GetComponent<MeshCollider>().enabled = false;
+
+        playerCollider1.enabled = false;
+        playerCollider2.enabled = false;
 
         
 
@@ -70,7 +83,12 @@ public class HideableObject : MonoBehaviour
 
         playerController.playerCanMove[1] = true;
 
-    
+        playerController.enableCrouch = true;
+
+        this.GetComponent<MeshCollider>().enabled = true;
+
+        playerCollider1.enabled = true;
+        playerCollider2.enabled = true;
 
 
     }
