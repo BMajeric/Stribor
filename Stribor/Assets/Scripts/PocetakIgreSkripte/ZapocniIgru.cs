@@ -8,6 +8,10 @@ public class ZapocniIgru : MonoBehaviour
 
     public List<Vector3> tamnaSumaPozicije = new List<Vector3>(); //2 jelenice sigurno idu u tamnu sumu
 
+    public List<Vector3> pozicijeJelenicaCopy; //pozicije na kojima ce se randomly rasporedit sve jelenice
+
+    public List<Vector3> tamnaSumaPozicijeCopy;
+
     public List<Transform> jelenice;
 
     List<int> iskoristeniT = new List<int>();
@@ -38,6 +42,14 @@ public class ZapocniIgru : MonoBehaviour
     void Start()
     {
         triger2.SetActive(false);
+        foreach (Vector3 pozicija in tamnaSumaPozicije) {
+            tamnaSumaPozicijeCopy.Add(pozicija);
+        }
+
+        foreach (Vector3 pozicija in pozicijeJelenica) {
+            pozicijeJelenicaCopy.Add(pozicija);
+        }
+        
         rasporediJelenice();
 
         vrijeme = GameObject.FindGameObjectWithTag("Sunce").GetComponent<VrijemeSkripta>();
@@ -60,6 +72,7 @@ public class ZapocniIgru : MonoBehaviour
         titlovi.pocetak = false;
         triger1.SetActive(false);
         svarozicURuci.SetActive(true);
+
         
     }
 
@@ -74,22 +87,22 @@ public class ZapocniIgru : MonoBehaviour
 
         if (brojac < 2) {
             // strpaj u tamnu sumu
-            int random = Random.Range(0, tamnaSumaPozicije.Count);
+            int random = Random.Range(0, tamnaSumaPozicijeCopy.Count);
 
-            while (iskoristeniT.Contains(random)) {
-                random = Random.Range(0, tamnaSumaPozicije.Count);
-            }
             iskoristeniT.Add(random);
+
+            tamnaSumaPozicijeCopy.RemoveAt(random);
 
             jelenica.localPosition = tamnaSumaPozicije[random];
         } else {
             //strpaj u ostatak svijeta
-            int random = Random.Range(0, pozicijeJelenica.Count);
-            while (iskoristeni.Contains(random)) {
-                random = Random.Range(0, tamnaSumaPozicije.Count);
-            }
+            int random = Random.Range(0, pozicijeJelenicaCopy.Count);
+            
             iskoristeni.Add(random);
+            pozicijeJelenicaCopy.RemoveAt(random);
             jelenica.localPosition = pozicijeJelenica[random];
+
+
         }
 
         brojac += 1;

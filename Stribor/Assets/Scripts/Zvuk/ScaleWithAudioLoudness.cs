@@ -14,7 +14,7 @@ public class ScaleWithAudioLoudness : MonoBehaviour
     private void Update()
     {
         loudness = dectector.getLoudnessFromMic() * Sensiblity;
-        Debug.Log(loudness);
+        //Debug.Log(loudness);
         if(loudness < treshold ) loudness = 0;
 
         transform.localScale = Vector3.Lerp(minScale, maxScale, loudness);

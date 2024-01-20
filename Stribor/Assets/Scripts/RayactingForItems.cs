@@ -71,6 +71,27 @@ public class RaycastingForItems : MonoBehaviour
 
                 hitObject.transform.gameObject.SetActive(false);
 
+                //odredi koji state imas
+                switch(ProstorEnums.svaroziciUpgradeTracker) {
+
+                    case ProstorEnums.SvaroziciUpgrade.BezUpgradea:
+                    ProstorEnums.svaroziciUpgradeTracker = ProstorEnums.SvaroziciUpgrade.NakonPrvogUpgradea;
+                    break;
+
+                    case ProstorEnums.SvaroziciUpgrade.NakonPrvogUpgradea:
+                    ProstorEnums.svaroziciUpgradeTracker = ProstorEnums.SvaroziciUpgrade.NakonDrugogUpgradea;
+                    break;
+
+                    case ProstorEnums.SvaroziciUpgrade.NakonDrugogUpgradea:
+                    ProstorEnums.svaroziciUpgradeTracker = ProstorEnums.SvaroziciUpgrade.NakonTrecegUpgradea;
+                    break;
+
+                }
+
+                Debug.Log(ProstorEnums.svaroziciUpgradeTracker.ToString());
+
+
+
                 upgradeSvarozica.Play();
 
                 upgradeSvarozica.gameObject.GetComponent<AudioSource>().Play();
