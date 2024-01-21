@@ -10,6 +10,8 @@ public class PlayVoiceIntro : MonoBehaviour
     public AudioClip engineStartClip;
     public AudioClip engineLoopClip;
     public AudioSource audio;
+
+    [SerializeField] public GameObject loadingScreen;
     void Start()
     {
         audio = GetComponent<AudioSource>();
@@ -26,6 +28,10 @@ public class PlayVoiceIntro : MonoBehaviour
         audio.clip = engineLoopClip;
         audio.Play();
         yield return new WaitForSeconds(audio.clip.length);
-        SceneManager.LoadScene("SampleScene");
+        
+        SceneManager.LoadSceneAsync("SampleScene");
+        loadingScreen.SetActive(true);
+        
+
     }
 }
