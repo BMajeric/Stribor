@@ -419,3 +419,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hideKey: 101
   hidingPos: {fileID: 1710273731650645578}
+  audioSource: {fileID: 0}
+  hideSound: {fileID: 0}
