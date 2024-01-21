@@ -207,7 +207,7 @@ public class Titlovi : MonoBehaviour
                 int random = Random.Range(0, bitniUkljuceniTitlovi.Count);
                 string odabraniTitl = bitniUkljuceniTitlovi[random];
 
-                startTime = Time.time;
+                cooldownStart = Time.time;
 
                 Subtitles.Show(odabraniTitl, 5f, SubtitleEffect.Both, 25);
                 //makni titl iz liste i zapisi ga u biljeske
@@ -219,7 +219,7 @@ public class Titlovi : MonoBehaviour
                 int random = Random.Range(0, ukljuceniTitlovi.Count);
                 string odabraniTitl = ukljuceniTitlovi[random];
 
-                startTime = Time.time;
+                cooldownStart = Time.time;
 
                 Subtitles.Show(odabraniTitl, 5f, SubtitleEffect.Both, 25);
             } else {
@@ -232,7 +232,7 @@ public class Titlovi : MonoBehaviour
             int random = Random.Range(0, ukljuceniTitloviPocetak.Count);
             string odabraniTitl = ukljuceniTitloviPocetak[random];
 
-            startTime = Time.time;
+            cooldownStart = Time.time;
 
             Subtitles.Show(odabraniTitl, 5f, SubtitleEffect.Both, 25);
 

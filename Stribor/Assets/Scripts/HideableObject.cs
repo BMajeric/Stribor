@@ -19,6 +19,10 @@ public class HideableObject : MonoBehaviour
 
     CapsuleCollider playerCollider2;
 
+    public AudioSource audioSource;
+
+    public AudioClip hideSound;
+
     bool isHiding;
     // Start is called before the first frame update
     void Start()
@@ -57,7 +61,7 @@ public class HideableObject : MonoBehaviour
         playerCollider1.enabled = false;
         playerCollider2.enabled = false;
 
-        
+        audioSource.PlayOneShot(hideSound);
 
         StartCoroutine("Unhide");
 
@@ -89,6 +93,8 @@ public class HideableObject : MonoBehaviour
 
         playerCollider1.enabled = true;
         playerCollider2.enabled = true;
+
+        audioSource.PlayOneShot(hideSound);
 
 
     }

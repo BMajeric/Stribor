@@ -12,6 +12,12 @@ public class Subtitles : MonoBehaviour
     [Tooltip("Hide the subtitle system in hierarchy")] public bool hideObject;
     [Tooltip("Speed of the type effect. This value can be updated in runtime.")] public float typeSpeed = 0;
 
+    public AudioSource malikSource;
+
+    public AudioSource malikSourcePocetak; //pocetak igrice
+
+    public AudioClip mrmljanje;
+
     /// <summary>
     /// Global method. Shows a close caption (subtitle). Only valid when only one instance of the system is in the scene.
     /// </summary>
@@ -103,6 +109,18 @@ public class Subtitles : MonoBehaviour
 
     private IEnumerator FadeType(GameObject dialogue, string text, Text textComponent, float duration)
     {
+        float randomPitch = Random.Range(0.8f, 1.2f);
+
+        if (ProstorEnums.smrtIgraca == ProstorEnums.Smrt.NijeUmro) {
+            malikSourcePocetak.pitch = randomPitch;
+            malikSourcePocetak.Play();
+        } else {
+            malikSource.pitch = randomPitch;
+            malikSource.Play();
+        }
+
+        
+
         Animator animator = dialogue.GetComponent<Animator>();
         animator.Play("In");
         textComponent.text = "";
@@ -111,6 +129,8 @@ public class Subtitles : MonoBehaviour
             textComponent.text += letter;
             yield return typeSpeed == 0 ? null : new WaitForSeconds(typeSpeed);
         }
+        malikSourcePocetak.Stop();
+        malikSource.Stop();
         yield return new WaitForSeconds(duration);
         animator.Play("Out");
         Destroy(dialogue, 1f);

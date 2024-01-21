@@ -16,6 +16,9 @@ TagManager:
   - Titlovi
   - Malik
   - Sunce
+  - Indoors
+  - Spilja
+  - Kotao
   layers:
   - Default
   - TransparentFX
