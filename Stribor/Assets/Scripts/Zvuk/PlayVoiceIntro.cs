@@ -19,6 +19,7 @@ public class PlayVoiceIntro : MonoBehaviour
 
     IEnumerator playEngineSound()
     {
+        yield return new WaitForSeconds(0.2f);
         audio.clip = engineStartClip;
         audio.Play();
         yield return new WaitForSeconds(audio.clip.length);
