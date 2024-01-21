@@ -36,6 +36,16 @@ public class RaycastingForItems : MonoBehaviour
 
     public GameObject svarozicURuci;
 
+    public Subtitles subtitlesSkripta;
+
+    public AudioSource itemSound;
+
+    public AudioClip pickUo;
+
+    public AudioClip hide;
+
+
+
 
     public List<GameObject> ListaUpgradePointovaISistema; //Lista koja sadrzi objekte, objekt1 su stvaru na koju ce igrac moci kliknuti, a index+1 je particle sistem za to
     void Start()
@@ -88,7 +98,7 @@ public class RaycastingForItems : MonoBehaviour
 
                 }
 
-                Debug.Log(ProstorEnums.svaroziciUpgradeTracker.ToString());
+                
 
 
 
@@ -106,6 +116,7 @@ public class RaycastingForItems : MonoBehaviour
             if (skupi) {
                 brojJelenica += 1;
                 JeleniceTekst.text = "Jelenice X " + brojJelenica;
+                itemSound.PlayOneShot(pickUo);
 
                 hitObject.SetActive(false);
 
@@ -120,6 +131,7 @@ public class RaycastingForItems : MonoBehaviour
             if (skupi) {
                 svarozicSkripta.BrojSvarozica += 1;
                 svarozicSkripta.SvaroziciTekst.text = "Domaći: " + svarozicSkripta.BrojSvarozica;
+                itemSound.PlayOneShot(pickUo);
 
 
                 //UNISTENJE
@@ -136,6 +148,11 @@ public class RaycastingForItems : MonoBehaviour
             if (skupi) {
                 svarozicSkripta.enabled = true;
                 svarozicURuci.SetActive(true);
+
+                //promijeni audiosource da se stvar ne zbrejka
+
+                subtitlesSkripta.malikSourcePocetak = subtitlesSkripta.malikSource;
+                itemSound.PlayOneShot(pickUo);
 
 
                 //UNISTENJE
@@ -154,6 +171,7 @@ public class RaycastingForItems : MonoBehaviour
 
                 //otvori vrata kamenoloma
                 hitObject.SetActive(false);
+                itemSound.PlayOneShot(pickUo);
                 
         
             }
@@ -166,6 +184,7 @@ public class RaycastingForItems : MonoBehaviour
 
                 ProstorEnums.striborProgress = ProstorEnums.StriborProgression.SkupioJelena;
                 titlovi.ukljuciTitlove("SkupioJelena");
+                itemSound.PlayOneShot(pickUo);
             }
             break;
 
@@ -178,11 +197,20 @@ public class RaycastingForItems : MonoBehaviour
             break;
 
             case "Kljuc":
-            tooltips.text = "(" + pickUpKey.ToString() + ") Skupi ključ";
+            tooltips.text = "(" + pickUpKey.ToString() + ") Skupi ključ od kamenoloma";
             if (skupi) {
                 hitObject.SetActive(false);
                 ProstorEnums.striborProgress = ProstorEnums.StriborProgression.SkupioKljuc;
                 titlovi.ukljuciTitlove("SkupioKljuc");
+                itemSound.PlayOneShot(pickUo);
+            }
+            break;
+
+            case "Kotao":
+            tooltips.text = "(" + pickUpKey.ToString() + ") Skuhaj jelenice";
+            if (skupi && brojJelenica == 12) {
+                //endaj game
+                Debug.Log("Gotova igra");
             }
             break;
 

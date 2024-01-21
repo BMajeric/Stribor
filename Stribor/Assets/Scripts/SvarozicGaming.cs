@@ -61,6 +61,10 @@ public class SvarozicGaming : MonoBehaviour
 
     private float pocetniIntenzitet;
 
+    public AudioSource audioSource;
+
+    public AudioClip throwSound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -205,6 +209,8 @@ public class SvarozicGaming : MonoBehaviour
         BrojSvarozica -= 1;
 
         SvaroziciTekst.text = "Domaći: " + BrojSvarozica;
+
+        audioSource.PlayOneShot(throwSound);
 
     }
 }
