@@ -38,6 +38,8 @@ public class ZapocniIgru : MonoBehaviour
 
     public GameObject svarozicURuci;
 
+    int random;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -87,20 +89,19 @@ public class ZapocniIgru : MonoBehaviour
 
         if (brojac < 2) {
             // strpaj u tamnu sumu
-            int random = Random.Range(0, tamnaSumaPozicijeCopy.Count);
+            random = Random.Range(0, tamnaSumaPozicijeCopy.Count);
 
-            iskoristeniT.Add(random);
+            jelenica.localPosition = tamnaSumaPozicijeCopy[random];
 
             tamnaSumaPozicijeCopy.RemoveAt(random);
 
-            jelenica.localPosition = tamnaSumaPozicije[random];
         } else {
             //strpaj u ostatak svijeta
-            int random = Random.Range(0, pozicijeJelenicaCopy.Count);
-            
-            iskoristeni.Add(random);
+            random = Random.Range(0, pozicijeJelenicaCopy.Count);
+            jelenica.localPosition = pozicijeJelenicaCopy[random];
             pozicijeJelenicaCopy.RemoveAt(random);
-            jelenica.localPosition = pozicijeJelenica[random];
+            Debug.Log(pozicijeJelenicaCopy.Count);
+            
 
 
         }
