@@ -5,14 +5,15 @@ using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour
 {
+    [Header("Enemy Configuration")]
     [SerializeField]
     private NavMeshAgent enemyAgent;
     [SerializeField]
-    private Transform player;
+    private float walkSpeed, chaseSpeed;
     [SerializeField]
     private List<Transform> destinations;        // The destinations to which the enemy will travel to simulate searching
-    [SerializeField]
-    private float walkSpeed, chaseSpeed;
+
+    private Transform player;
     
     bool walking, chasing;
 
@@ -24,38 +25,53 @@ public class EnemyController : MonoBehaviour
     void Start()
     {
         walking = true;
+        player = GameObject.FindWithTag("Player").transform;
         randDestIndex = Random.Range(0, destinations.Count);
+        //randDestIndex = 20;
         currentDestination = destinations[randDestIndex];
-        //Debug.Log("REMAINING: " + enemyAgent.remainingDistance);
-        //Debug.Log("STOPPING: " + enemyAgent.stoppingDistance);
+
     }
 
     private void Update()
     {
         if (walking)
         {
-            destination = currentDestination.transform.position;
+            destination = currentDestination.position;
             enemyAgent.destination = destination;
             enemyAgent.speed = walkSpeed;
 
-            if (enemyAgent.remainingDistance <= enemyAgent.stoppingDistance)
-            {
-                while(randDestIndex == prevRandDestIndex)
-                {
-                    randDestIndex = Random.Range(0, destinations.Count);
-                    currentDestination = destinations[randDestIndex];
-                    //Debug.Log(randDestIndex);
-                    //Debug.Log(walking);
-                }
-                StartCoroutine(WaitingCoroutine(1));
-            }
-            //Debug.Log("A");
-            prevRandDestIndex = randDestIndex;
-        } else if (chasing)
+            StartCoroutine(SetPatrolingDestination());
+
+        }
+        else if (chasing)
         {
             enemyAgent.destination = player.transform.position;
             enemyAgent.speed = chaseSpeed;
         }
+    }
+
+    IEnumerator SetPatrolingDestination()
+    {
+        if (enemyAgent.pathPending)
+        {
+            yield return new WaitForSeconds(.5f);
+        }
+        Debug.Log("REAMINING DISTANCE: " + enemyAgent.remainingDistance);
+        if (enemyAgent.remainingDistance <= enemyAgent.stoppingDistance)
+        {
+            while (randDestIndex == prevRandDestIndex)
+            {
+                randDestIndex = Random.Range(0, destinations.Count);
+                ///randDestIndex = (randDestIndex + 1) % destinations.Count;
+                currentDestination = destinations[randDestIndex];
+                Debug.Log("Random Index: " + randDestIndex.ToString());
+                StartCoroutine(WaitingCoroutine(1));
+            }
+        }
+        //Debug.Log("A");
+        prevRandDestIndex = randDestIndex;
+
+        yield return null;
     }
 
     IEnumerator WaitingCoroutine(int seconds)
@@ -63,13 +79,22 @@ public class EnemyController : MonoBehaviour
         yield return new WaitForSeconds(seconds);
     }
 
-    void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         //Debug.Log(other.tag);
         if (other.CompareTag("Player"))
         {
             chasing = true;
             walking = false;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            chasing = false;
+            walking = true;
         }
     }
 

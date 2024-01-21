@@ -2,17 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public ProstorEnums.Lokacija PlayerLocation;
+    private Transform player;
+    private GameObject enemy;
 
-    // Update is called once per frame
-    void Update()
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+    private void Initialize()
     {
-        
+        player = GameObject.FindWithTag("Player").transform;
+        enemy = GameObject.FindWithTag("Enemy");
     }
 }
