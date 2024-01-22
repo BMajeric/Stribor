@@ -9,7 +9,7 @@ using UnityEngine.Rendering.Universal;
 public class JelenicaRadar : MonoBehaviour
 {
     ParticleSystem radar;
-    float cooldownTime = 5.0f;
+    float cooldownTime = 8.0f;
     float lastUsed;
 
     public KeyCode radarKey;
@@ -18,13 +18,15 @@ public class JelenicaRadar : MonoBehaviour
 
     public ScriptableRendererFeature jelenicaOccluded;
 
-    AudioSource zvukRadara;
+    public AudioSource zvukRadara;
+
+    public List<AudioClip> radarZvukovi = new List<AudioClip>();
 
     // Start is called before the first frame update
     void Start()
     {
         radar = GetComponent<ParticleSystem>();
-        zvukRadara = GetComponent<AudioSource>();
+        
         radarKey = KeyCode.G;
     }
 
@@ -32,6 +34,11 @@ public class JelenicaRadar : MonoBehaviour
     private void Update() {
         
         if (Input.GetKeyDown(radarKey) && Time.time > lastUsed + cooldownTime) {
+
+            AudioClip randomClip = radarZvukovi[Random.Range(0, radarZvukovi.Count)];
+
+            zvukRadara.PlayOneShot(randomClip);
+
             radar.Play();
 
             //zvukRadara.Play();

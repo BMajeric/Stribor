@@ -32920,6 +32920,15 @@ MonoBehaviour:
   radarKey: 0
   jelenicaOccluded: {fileID: -8494273076738320879, guid: c40be3174f62c4acf8c1216858c64956,
     type: 2}
+  zvukRadara: {fileID: 1859998157}
+  radarZvukovi:
+  - {fileID: 8300000, guid: 008f7a479e0171f4893ec8a23feaef76, type: 3}
+  - {fileID: 8300000, guid: 7d2ce3fc36a024c4e81ff35554c13446, type: 3}
+  - {fileID: 8300000, guid: 3bb88e918467e3d41a98a3441fba6dd6, type: 3}
+  - {fileID: 8300000, guid: 6635b6d320437f84fbfadd00413bba07, type: 3}
+  - {fileID: 8300000, guid: 181052c9c0919cf4795b2024e418bcad, type: 3}
+  - {fileID: 8300000, guid: 6e044030cea649e4a9b48b077d629652, type: 3}
+  - {fileID: 8300000, guid: ae372c3e1b0fd124ea0197bc2eebeed8, type: 3}
 --- !u!82 &1859998157
 AudioSource:
   m_ObjectHideFlags: 0
@@ -32930,7 +32939,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 7e17926f4c57bd2419d75521f2d4a5f5, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -32976,7 +32985,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
