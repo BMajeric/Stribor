@@ -12,7 +12,7 @@ public class EnemyController : MonoBehaviour
     private float walkSpeed, chaseSpeed;
     [SerializeField]
     private List<Transform> destinations;        // The destinations to which the enemy will travel to simulate searching
-
+    private List<Transform> moreLikelyestinations;  // The destinations provided by the GameManager based on the players current location
     private Vector3 playerPosition;
     private GameController gameManager;
     
@@ -35,12 +35,13 @@ public class EnemyController : MonoBehaviour
         randDestIndex = Random.Range(0, destinations.Count);
         //randDestIndex = 20;
         currentDestination = destinations[randDestIndex];
+        moreLikelyestinations = new List<Transform>();
 
     }
 
     private void Update()
     {
-        Debug.Log(gameManager.isSpotted);
+        //Debug.Log(gameManager.isSpotted);
         if (gameManager.isSpotted)
         {
             chasing = true;
@@ -65,6 +66,7 @@ public class EnemyController : MonoBehaviour
         prevChasing = chasing;
 
         playerPosition = gameManager.playerExportPosition;
+        moreLikelyestinations = gameManager.exportDestinations;
 
         if (walking)
         {
@@ -77,8 +79,11 @@ public class EnemyController : MonoBehaviour
         }
         else if (chasing)
         {
-            enemyAgent.destination = playerPosition;
-            enemyAgent.speed = chaseSpeed;
+            if (playerPosition != Vector3.zero)
+            {
+                enemyAgent.destination = playerPosition;
+                enemyAgent.speed = chaseSpeed;
+            }
         }
     }
 
@@ -93,10 +98,18 @@ public class EnemyController : MonoBehaviour
         {
             while (randDestIndex == prevRandDestIndex)
             {
-                randDestIndex = Random.Range(0, destinations.Count);
-                ///randDestIndex = (randDestIndex + 1) % destinations.Count;
-                currentDestination = destinations[randDestIndex];
-                //Debug.Log("Random Index: " + randDestIndex.ToString());
+                if (moreLikelyestinations.Count > 0)
+                {
+                    randDestIndex = Random.Range(0, moreLikelyestinations.Count);
+                    currentDestination = moreLikelyestinations[randDestIndex];
+                }
+                else
+                {
+                    randDestIndex = Random.Range(0, destinations.Count);
+                    ///randDestIndex = (randDestIndex + 1) % destinations.Count;
+                    currentDestination = destinations[randDestIndex];
+                    //Debug.Log("Random Index: " + randDestIndex.ToString());
+                }
                 StartCoroutine(WaitingCoroutine(1));
             }
         }
