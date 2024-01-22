@@ -27,7 +27,7 @@ public class SvarozicInWorldSkripta : MonoBehaviour
 
         //osim igraca
 
-        if (other.transform.tag != "Player") {
+        if (other.transform.tag != "Player" && other.transform.tag != "Svarozic") {
             rigid.velocity = new Vector3(0f, 0f, 0f);
 
             //rigid.useGravity = false;

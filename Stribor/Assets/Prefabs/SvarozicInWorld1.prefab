@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 6572361551840405602}
   - component: {fileID: 963849963399442016}
   - component: {fileID: 7053351079619607193}
-  - component: {fileID: 5148794002052159293}
   - component: {fileID: 1677807044205000229}
   - component: {fileID: 6965464224844753810}
   - component: {fileID: 5531759316384897924}
+  - component: {fileID: 6399673490374592749}
   m_Layer: 13
   m_Name: SvarozicInWorld1
   m_TagString: Svarozic
@@ -88,28 +88,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6570254738264066211}
   m_Mesh: {fileID: -1156235413223016825, guid: 1d339e52daf2b674f84893b1ff904738, type: 3}
---- !u!64 &5148794002052159293
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6570254738264066211}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
 --- !u!54 &1677807044205000229
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -167,6 +145,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 588af4f07a27ecf4383549219d3f4e0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!64 &6399673490374592749
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6570254738264066211}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -1156235413223016825, guid: 1d339e52daf2b674f84893b1ff904738, type: 3}
 --- !u!1 &7151200629762719562
 GameObject:
   m_ObjectHideFlags: 0
@@ -194,7 +194,7 @@ Transform:
   m_GameObject: {fileID: 7151200629762719562}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.147, y: 0.568, z: -0.176}
+  m_LocalPosition: {x: 0.008, y: 0.3141, z: -0.002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
