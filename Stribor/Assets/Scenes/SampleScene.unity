@@ -26550,6 +26550,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 986299592051436128, guid: f5ae51d619748bb45ba3366f13373279,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2100401288691167382, guid: f5ae51d619748bb45ba3366f13373279,
         type: 3}
       propertyPath: destinations.Array.data[0]
@@ -26674,6 +26679,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 3264535478225166648, guid: f5ae51d619748bb45ba3366f13373279,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9031264617315058896, guid: f5ae51d619748bb45ba3366f13373279,
         type: 3}
