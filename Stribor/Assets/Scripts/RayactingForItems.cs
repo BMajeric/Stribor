@@ -46,6 +46,8 @@ public class RaycastingForItems : MonoBehaviour
 
     public Animator vrata;
 
+    public bool pogodioZid;
+
 
     public List<GameObject> ListaUpgradePointovaISistema; //Lista koja sadrzi objekte, objekt1 su stvaru na koju ce igrac moci kliknuti, a index+1 je particle sistem za to
     void Start()
@@ -232,9 +234,24 @@ public class RaycastingForItems : MonoBehaviour
 
         RaycastHit hit;
 
+        //provjeri jel pogodio zid ili nesto prije itema
+
+        if (Physics.Raycast(ociLevel.position, Camera.main.transform.forward, out hit, 2)) {
+            //13 je item layer
+            if (hit.transform.gameObject.layer != 13) {
+                //pogodio neki shit
+                pogodioZid = true;
+            } else {
+                pogodioZid = false;
+            }
+
+        } else {
+            pogodioZid = false;
+        }
+
         //provjera za iteme
 
-        if (Physics.Raycast(ociLevel.position, Camera.main.transform.forward, out hit, 2, itemMask)) {
+        if (Physics.Raycast(ociLevel.position, Camera.main.transform.forward, out hit, 2, itemMask) && !pogodioZid) {
             Debug.DrawRay(ociLevel.position, Camera.main.transform.forward * hit.distance, Color.yellow, 2);
             item = hit.transform.gameObject;
 

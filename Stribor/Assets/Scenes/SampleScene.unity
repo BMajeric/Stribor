@@ -27480,6 +27480,7 @@ MonoBehaviour:
   pickUo: {fileID: 8300000, guid: ec75229b2e20c904d962e7f5ea3017c6, type: 3}
   hide: {fileID: 8300000, guid: b14db1f0fd4975c47a81fd5f075cb46b, type: 3}
   vrata: {fileID: 987582875}
+  pogodioZid: 0
   ListaUpgradePointovaISistema:
   - {fileID: 256098294}
   - {fileID: 521445273}
@@ -40661,6 +40662,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: OkretanjeVrata
+      objectReference: {fileID: 0}
+    - target: {fileID: 2053624312410633221, guid: f52cc565a8841514891878e420ae4727,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 2053624312410633221, guid: f52cc565a8841514891878e420ae4727,
         type: 3}
