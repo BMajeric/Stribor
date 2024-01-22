@@ -44,7 +44,7 @@ public class RaycastingForItems : MonoBehaviour
 
     public AudioClip hide;
 
-
+    public Animator vrata;
 
 
     public List<GameObject> ListaUpgradePointovaISistema; //Lista koja sadrzi objekte, objekt1 su stvaru na koju ce igrac moci kliknuti, a index+1 je particle sistem za to
@@ -68,6 +68,7 @@ public class RaycastingForItems : MonoBehaviour
         
 
         tooltips.enabled = true;
+        Debug.Log(hitObject.tag);
 
         switch(hitObject.tag) {
             
@@ -170,7 +171,7 @@ public class RaycastingForItems : MonoBehaviour
                 
 
                 //otvori vrata kamenoloma
-                hitObject.SetActive(false);
+                vrata.SetBool("vrata", true);
                 itemSound.PlayOneShot(pickUo);
                 
         
