@@ -14,6 +14,16 @@ TagManager:
   - Jelen
   - Kljuc
   - Titlovi
+  - GameManager
+  - Poljana
+  - TamnaSuma
+  - Brdo
+  - Jezero
+  - LovackaKuca
+  - VelikoDrvo
+  - Spilja
+  - Kamenolom
+  - Crkva
   layers:
   - Default
   - TransparentFX

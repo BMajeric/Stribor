@@ -13,19 +13,25 @@ public class EnemyController : MonoBehaviour
     [SerializeField]
     private List<Transform> destinations;        // The destinations to which the enemy will travel to simulate searching
 
-    private Transform player;
+    private Vector3 playerPosition;
+    private GameController gameManager;
     
-    bool walking, chasing;
+    bool walking, chasing, prevWalking, prevChasing = false;
 
     Transform currentDestination;
     Vector3 destination;
     int randDestIndex, prevRandDestIndex;          // Integer for randomly determining the next destination
 
+    [SerializeField]
+    private AudioSource playerSpottedSound;
+    [SerializeField]
+    private AudioSource playerRanAwaySound;
 
     void Start()
     {
         walking = true;
-        player = GameObject.FindWithTag("Player").transform;
+        //player = GameObject.FindWithTag("Player").transform;
+        gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameController>();
         randDestIndex = Random.Range(0, destinations.Count);
         //randDestIndex = 20;
         currentDestination = destinations[randDestIndex];
@@ -34,6 +40,32 @@ public class EnemyController : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log(gameManager.isSpotted);
+        if (gameManager.isSpotted)
+        {
+            chasing = true;
+            walking = false;
+        }
+        else
+        {
+            chasing = false;
+            walking = true;
+        }
+
+        if (prevWalking == true && walking == false && prevChasing == false && chasing == true)
+        {
+            playerSpottedSound.Play();
+        } 
+        else if (prevWalking == false && walking == true && prevChasing == true && chasing == false)
+        {
+            playerRanAwaySound.Play();
+        }
+
+        prevWalking = walking;
+        prevChasing = chasing;
+
+        playerPosition = gameManager.playerExportPosition;
+
         if (walking)
         {
             destination = currentDestination.position;
@@ -45,7 +77,7 @@ public class EnemyController : MonoBehaviour
         }
         else if (chasing)
         {
-            enemyAgent.destination = player.transform.position;
+            enemyAgent.destination = playerPosition;
             enemyAgent.speed = chaseSpeed;
         }
     }
@@ -56,7 +88,7 @@ public class EnemyController : MonoBehaviour
         {
             yield return new WaitForSeconds(.5f);
         }
-        Debug.Log("REAMINING DISTANCE: " + enemyAgent.remainingDistance);
+        //Debug.Log("REAMINING DISTANCE: " + enemyAgent.remainingDistance);
         if (enemyAgent.remainingDistance <= enemyAgent.stoppingDistance)
         {
             while (randDestIndex == prevRandDestIndex)
@@ -64,7 +96,7 @@ public class EnemyController : MonoBehaviour
                 randDestIndex = Random.Range(0, destinations.Count);
                 ///randDestIndex = (randDestIndex + 1) % destinations.Count;
                 currentDestination = destinations[randDestIndex];
-                Debug.Log("Random Index: " + randDestIndex.ToString());
+                //Debug.Log("Random Index: " + randDestIndex.ToString());
                 StartCoroutine(WaitingCoroutine(1));
             }
         }
@@ -77,25 +109,6 @@ public class EnemyController : MonoBehaviour
     IEnumerator WaitingCoroutine(int seconds)
     {
         yield return new WaitForSeconds(seconds);
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        //Debug.Log(other.tag);
-        if (other.CompareTag("Player"))
-        {
-            chasing = true;
-            walking = false;
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            chasing = false;
-            walking = true;
-        }
     }
 
 }
