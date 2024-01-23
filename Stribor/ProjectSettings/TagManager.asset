@@ -19,6 +19,16 @@ TagManager:
   - Indoors
   - Spilja
   - Kotao
+  - GameManager
+  - Poljana
+  - TamnaSuma
+  - Brdo
+  - Jezero
+  - LovackaKuca
+  - VelikoDrvo
+  - Spilja
+  - Kamenolom
+  - Crkva
   layers:
   - Default
   - TransparentFX
