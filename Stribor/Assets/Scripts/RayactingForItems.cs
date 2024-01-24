@@ -118,7 +118,7 @@ public class RaycastingForItems : MonoBehaviour
             tooltips.text = "(" + pickUpKey.ToString() + ") Skupi jelenicu";
             if (skupi) {
                 brojJelenica += 1;
-                JeleniceTekst.text = "Jelenice X " + brojJelenica;
+                JeleniceTekst.text = "Jelenice: " + brojJelenica;
                 itemSound.PlayOneShot(pickUo);
 
                 hitObject.SetActive(false);

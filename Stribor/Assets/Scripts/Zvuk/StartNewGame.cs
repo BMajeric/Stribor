@@ -6,6 +6,8 @@ using static UnityEngine.ProBuilder.AutoUnwrapSettings;
 
 public class StartNewGame : MonoBehaviour
 {
+
+    
     public GameObject image;
     public Animator animatator;
     public void LoadNewGame()

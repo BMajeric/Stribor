@@ -38,6 +38,8 @@ public class TamnaSumaEnemySpawned : MonoBehaviour
     RaycastHit hitGround;
 
     LayerMask terrainMask;
+
+    PlayerDeath death;
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -45,6 +47,8 @@ public class TamnaSumaEnemySpawned : MonoBehaviour
         playerSkripta = player.GetComponent<FirstPersonController>();
 
         svarozicSkripta = player.GetComponent<SvarozicGaming>();
+
+        death = player.GetComponent<PlayerDeath>();
 
         startTime = Time.time;
 
@@ -140,7 +144,7 @@ public class TamnaSumaEnemySpawned : MonoBehaviour
         while (napadZvuk.isPlaying) {
             //provjeravaj za kretanje svaki frame
 
-            if (player.GetComponent<Rigidbody>().velocity.magnitude > 0.5f || !svarozicSkripta.SvarozicUgasen) {
+            if (player.GetComponent<Rigidbody>().velocity.magnitude > 1f || !svarozicSkripta.SvarozicUgasen) {
                 ubijIgraca();
                 yield break;
             }
@@ -164,8 +168,7 @@ public class TamnaSumaEnemySpawned : MonoBehaviour
     void ubijIgraca() {
         //neki jumpscare ili nesto
         umrositekst.SetActive(true);
-        playerSkripta.playerCanMove[2] = false;
-        playerSkripta.cameraCanMove = false;
         Camera.main.transform.LookAt(this.transform);
+        death.UbijIgraca();
     }
 }

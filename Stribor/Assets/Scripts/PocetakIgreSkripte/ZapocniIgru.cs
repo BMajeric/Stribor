@@ -111,4 +111,32 @@ public class ZapocniIgru : MonoBehaviour
     }
 
    }
+
+   public void RasporediJeleniceNakonSmrti() {
+    
+    int brojacJ = 0;
+
+    List<Transform> iskljuceneJelenice = new List<Transform>();
+
+    foreach (Transform jelenica in jelenice) {
+
+        if (!jelenica.gameObject.activeInHierarchy && brojacJ < 2) {
+
+            brojacJ += 1;
+
+            iskljuceneJelenice.Add(jelenica);
+        }
+
+    }
+
+    foreach (Transform jelenica in iskljuceneJelenice) {
+        jelenica.gameObject.SetActive(true);
+
+        random = Random.Range(0, pozicijeJelenicaCopy.Count);
+        jelenica.localPosition = pozicijeJelenicaCopy[random];
+        pozicijeJelenicaCopy.RemoveAt(random);
+    }
+    
+
+   }
 }

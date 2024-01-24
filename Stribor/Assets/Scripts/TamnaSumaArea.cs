@@ -33,9 +33,12 @@ public class TamnaSumaArea : MonoBehaviour
 
     public float brzinaRasta;
 
+    PlayerDeath death;
+
     private void Start() {
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<FirstPersonController>();
         svarozicSkripta = GameObject.FindGameObjectWithTag("Player").GetComponent<SvarozicGaming>();
+        death = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerDeath>();
         
         pocetnaBojaMagle.r = 0.3396226f;
         pocetnaBojaMagle.g = 0.3396226f;
@@ -195,7 +198,7 @@ public class TamnaSumaArea : MonoBehaviour
             StartCoroutine(UbijIgracaBezSvijetla(t));
         } else {
             //ubi igraca
-            Debug.Log("Smrt");
+            death.UbijIgraca();
         }
 
     }
