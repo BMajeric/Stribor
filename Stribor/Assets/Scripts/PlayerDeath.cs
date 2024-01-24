@@ -26,9 +26,12 @@ public class PlayerDeath : MonoBehaviour
 
     public AudioSource audioSource;
 
+    bool umire;
+
     private void Start() {
         playerSkripta = GameObject.FindGameObjectWithTag("Player").GetComponent<FirstPersonController>();
         raycastSkripta = GameObject.FindGameObjectWithTag("Player").GetComponent<RaycastingForItems>();
+        umire = false;
     }
 
     private void Update() {
@@ -39,6 +42,14 @@ public class PlayerDeath : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (collision.gameObject.tag == "Enemy" && !umire) {
+            UbijIgraca();
+            umire = true;
+        } else if (collision.gameObject.tag == "Enemy") {
+            float randomPitch = UnityEngine.Random.Range(0.75f, 1.25f);
+            audioSource.pitch = randomPitch;
+            audioSource.Play();
+        }
         
     }
 
@@ -48,6 +59,7 @@ public class PlayerDeath : MonoBehaviour
         playerSkripta.cameraCanMove = false;
         playerSkripta.isWalking = false;
         //Debug.Log(playerSkripta.transform.rotation.y);
+        audioSource.pitch = 1f;
         audioSource.Play();
 
         StartCoroutine(OkreciIgraca(0f));
@@ -132,6 +144,7 @@ public class PlayerDeath : MonoBehaviour
 
         playerSkripta.playerCanMove[2] = true;
         playerSkripta.cameraCanMove = true;
+        umire = false;
 
         
 
