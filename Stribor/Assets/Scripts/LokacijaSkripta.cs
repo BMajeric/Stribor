@@ -23,7 +23,7 @@ public class LokacijaSkripta : MonoBehaviour
         susjednaPodrucja.Add("TamnaSuma", new List<string>());
         susjednaPodrucja.Add("Brdo", new List<string> {"TamnaSuma", "Poljana", "Jezero", "Crkva"});
         susjednaPodrucja.Add("Jezero", new List<string> {"Crkva", "Poljana", "Brdo"});
-        susjednaPodrucja.Add("LovackaKuca", new List<string> {"VelikoDrvo", "kamenolom", "Spilja", "TamnaSuma", "Poljana"});
+        susjednaPodrucja.Add("LovackaKuca", new List<string> {"VelikoDrvo", "Kamenolom", "Spilja", "TamnaSuma", "Poljana"});
         susjednaPodrucja.Add("VelikoDrvo", new List<string>{"Poljana", "LovackaKuca", "Crkva"});
         susjednaPodrucja.Add("Spilja", new List<string> {"LovackaKuca", "TamnaSuma"});
         susjednaPodrucja.Add("Kamenolom", new List<string> {"LovackaKuca", "Spilja"});
