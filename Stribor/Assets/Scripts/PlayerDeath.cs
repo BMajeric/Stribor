@@ -104,7 +104,11 @@ public class PlayerDeath : MonoBehaviour
 
         //respawnaj te dvije jelenice
 
-        zapocniIgruSkripta.RasporediJeleniceNakonSmrti();
+        if (ProstorEnums.smrtIgraca != ProstorEnums.Smrt.NijeUmro) {
+            zapocniIgruSkripta.RasporediJeleniceNakonSmrti();
+        }
+
+        
 
         //postavi smrt enum
 
