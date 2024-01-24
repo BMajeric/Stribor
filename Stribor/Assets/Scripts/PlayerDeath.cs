@@ -106,6 +106,8 @@ public class PlayerDeath : MonoBehaviour
 
         if (ProstorEnums.smrtIgraca != ProstorEnums.Smrt.NijeUmro) {
             zapocniIgruSkripta.RasporediJeleniceNakonSmrti();
+        } else {
+            zapocniIgruSkripta.enabled = true;
         }
 
         

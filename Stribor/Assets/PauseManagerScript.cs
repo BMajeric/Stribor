@@ -9,6 +9,12 @@ public class PauseManagerScript : MonoBehaviour
     public GameObject pauseUI;
 
     public GameObject camera;
+
+    FirstPersonController fpc;
+
+    private void Start() {
+        fpc = GameObject.FindGameObjectWithTag("Player").GetComponent<FirstPersonController>();
+    }
     void Update(){
         //esc
         if(Input.GetKeyDown(KeyCode.Escape)){
@@ -17,6 +23,7 @@ public class PauseManagerScript : MonoBehaviour
             pauseUI.SetActive(true);
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
+            fpc.cameraCanMove = false;
         }
 			
     }
@@ -31,11 +38,14 @@ public class PauseManagerScript : MonoBehaviour
         pauseUI.SetActive(false);
         jeleniceUI.SetActive(true);
         Time.timeScale = 1;
+        fpc.cameraCanMove = true;
     }
 
     public void StisniDa(){
         Time.timeScale = 1;
+        fpc.cameraCanMove = true;
         SceneManager.LoadScene(0);
+        
     }
     
 }

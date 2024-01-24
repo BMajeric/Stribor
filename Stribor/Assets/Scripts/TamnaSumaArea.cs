@@ -196,8 +196,9 @@ public class TamnaSumaArea : MonoBehaviour
 
         if (t < 1f && vani) {
             StartCoroutine(UbijIgracaBezSvijetla(t));
-        } else {
+        } else if (vani) {
             //ubi igraca
+            vinjeta.intensity.value = 0.25f;
             death.UbijIgraca();
         }
 

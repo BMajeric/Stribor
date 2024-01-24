@@ -24,6 +24,8 @@ public class StartDijalog2 : MonoBehaviour
 
     bool trigerao;
 
+    public GameObject enemy;
+
     private void Start() {
         raycasting = player.GetComponent<RaycastingForItems>();
         svarozicGaming = player.GetComponent<SvarozicGaming>();
@@ -93,6 +95,6 @@ public class StartDijalog2 : MonoBehaviour
 
     yield return new WaitUntil(() => raycasting.brojJelenica == 2);
 
-    Subtitles.Show("Tooooo", 8f, SubtitleEffect.Both, 25);
+    enemy.SetActive(true);
    }
 }
