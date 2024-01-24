@@ -40,6 +40,8 @@ public class ZapocniIgru : MonoBehaviour
 
     int random;
 
+    public GameObject enemies;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -74,6 +76,7 @@ public class ZapocniIgru : MonoBehaviour
         titlovi.pocetak = false;
         triger1.SetActive(false);
         svarozicURuci.SetActive(true);
+        enemies.SetActive(true);
 
         
     }
