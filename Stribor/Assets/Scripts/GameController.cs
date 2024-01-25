@@ -17,6 +17,7 @@ public class GameController : MonoBehaviour
     private bool givePlayerLocation;
     private List<string> possiblePlayerAreas;
     public List<Transform> exportDestinations;
+    public List<Transform> exportPlayerDestinations;
 
     public bool isSpotted;
 
@@ -27,44 +28,66 @@ public class GameController : MonoBehaviour
         exposureManager = player.GetComponent<ExposureManager>();
 
         PlayerLocation = ProstorEnums.lokacijaIgraca;
-        Debug.Log("Game Manager initialized!");
         neighbourAreas = lokacijaDictHolder.GetComponent<LokacijaSkripta>().susjednaPodrucja;
+        possiblePlayerAreas = neighbourAreas[PlayerLocation.ToString()];
+        possiblePlayerAreas.Add(PlayerLocation.ToString());
+
+        exportDestinations = new List<Transform>();
+        foreach (string area in possiblePlayerAreas)
+        {
+            GameObject[] objects = GameObject.FindGameObjectsWithTag(area);
+            foreach (GameObject obj in objects)
+            {
+                exportDestinations.Add(obj.transform);
+            }
+        }
+        Debug.Log("Game Manager initialized!");
+        
         givePlayerLocation = false;
 
         InvokeRepeating("IsInEnemyFOV", 0f, 3f);
-        InvokeRepeating("RevealApproxPlayerLocation", 10f, 40f);
+        InvokeRepeating("RevealApproxPlayerLocation", 30f, 120f);
     }
 
     private void Update()
     {
         PlayerLocation = ProstorEnums.lokacijaIgraca;
 
-        if (givePlayerLocation)
+        if (PlayerLocation != PrevPlayerLocation)
         {
-            if (PlayerLocation != PrevPlayerLocation)
-            {
-                possiblePlayerAreas = neighbourAreas[PlayerLocation.ToString()];
-                possiblePlayerAreas.Add(PlayerLocation.ToString());
+            possiblePlayerAreas = neighbourAreas[PlayerLocation.ToString()];
+            possiblePlayerAreas.Add(PlayerLocation.ToString());
 
-                exportDestinations = new List<Transform>();
-                foreach (string area in possiblePlayerAreas)
+            exportDestinations = new List<Transform>();
+            foreach (string area in possiblePlayerAreas)
+            {
+                GameObject[] objects = GameObject.FindGameObjectsWithTag(area);
+                foreach (GameObject obj in objects)
                 {
-                    GameObject[] objects = GameObject.FindGameObjectsWithTag(area);
-                    foreach (GameObject obj in objects)
-                    {
-                        exportDestinations.Add(obj.transform);
-                    }
+                    exportDestinations.Add(obj.transform);
                 }
+            }
 
-            }
-        }
-        else
-        {
-            if (exportDestinations.Count > 0)
+            if (givePlayerLocation)
             {
-                exportDestinations.Clear();
+                exportPlayerDestinations = new List<Transform>();
+                GameObject[] objects = GameObject.FindGameObjectsWithTag(PlayerLocation.ToString());
+                foreach (GameObject obj in objects)
+                {
+                    exportDestinations.Add(obj.transform);
+                }
             }
+            else
+            {
+                if (exportPlayerDestinations.Count > 0)
+                {
+                    exportPlayerDestinations.Clear();
+                }
+            }
+
         }
+        
+        
 
         Debug.Log("LOKACIJA: " + PlayerLocation);
         if (isSpotted)
@@ -81,18 +104,22 @@ public class GameController : MonoBehaviour
 
     private void IsInEnemyFOV()
     {
+        // Check if player is in viewing range of the enemy and if he is in the enemies FOV
         // Adjust FOV so that the enemy is more aware of the player once the player is spotted
-        float fov;
         if (!isSpotted) {
-            fov = 0.707f;   // Field of view = 90 (45 degrees from each side)
+            // Field of view = 90 (45 degrees from each side)
+            isSpotted = Physics.OverlapSphere(enemy.transform.position, exposureManager.Exposure, LayerMask.GetMask("Player")).Length > 0
+           && Vector3.Dot(enemy.transform.forward, player.transform.position - enemy.transform.position) < 0.707f;  
         }
         else
         {
-            fov = 0.259f;   // Field of view = 150 (75 degrees from each side)
+            // Field of view = 150 (75 degrees from each side)
+            // If player is close to the enemy, the enemy can't lose him
+            isSpotted = (Physics.OverlapSphere(enemy.transform.position, exposureManager.Exposure, LayerMask.GetMask("Player")).Length > 0
+           && Vector3.Dot(enemy.transform.forward, player.transform.position - enemy.transform.position) < 0.259f)
+           || Physics.OverlapSphere(enemy.transform.position, 10f, LayerMask.GetMask("Player")).Length > 0;
         }
-        // Check if player is in viewing range of the enemy and if he is in the enemies FOV
-        isSpotted = Physics.OverlapSphere(enemy.transform.position, exposureManager.Exposure, LayerMask.GetMask("Player")).Length > 0
-           && Vector3.Dot(enemy.transform.forward, player.transform.position - enemy.transform.position) < fov;
+        
     }
 
     private void RevealApproxPlayerLocation()

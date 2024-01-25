@@ -10,7 +10,7 @@ public class EnemyController : MonoBehaviour
     private NavMeshAgent enemyAgent;
     [SerializeField]
     private float walkSpeed, chaseSpeed;
-    [SerializeField]
+    
     private List<Transform> destinations;        // The destinations to which the enemy will travel to simulate searching
     private List<Transform> moreLikelyestinations;  // The destinations provided by the GameManager based on the players current location
     private Vector3 playerPosition;
@@ -32,8 +32,9 @@ public class EnemyController : MonoBehaviour
         walking = true;
         //player = GameObject.FindWithTag("Player").transform;
         gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameController>();
+
+        destinations = gameManager.exportDestinations;
         randDestIndex = Random.Range(0, destinations.Count);
-        //randDestIndex = 20;
         currentDestination = destinations[randDestIndex];
         moreLikelyestinations = new List<Transform>();
 
@@ -66,7 +67,7 @@ public class EnemyController : MonoBehaviour
         prevChasing = chasing;
 
         playerPosition = gameManager.playerExportPosition;
-        moreLikelyestinations = gameManager.exportDestinations;
+        moreLikelyestinations = gameManager.exportPlayerDestinations;
 
         if (walking)
         {
@@ -124,4 +125,5 @@ public class EnemyController : MonoBehaviour
         yield return new WaitForSeconds(seconds);
     }
 
+    
 }
