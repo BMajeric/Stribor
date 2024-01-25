@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class RaycastingForItems : MonoBehaviour
 {
@@ -214,6 +215,7 @@ public class RaycastingForItems : MonoBehaviour
             if (skupi && brojJelenica == 12) {
                 //endaj game
                 Debug.Log("Gotova igra");
+                SceneManager.LoadScene("Ending");
             }
             break;
 
