@@ -26,9 +26,12 @@ public class StartDijalog2 : MonoBehaviour
 
     public GameObject enemy;
 
+    PlayerDeath death;
+
     private void Start() {
         raycasting = player.GetComponent<RaycastingForItems>();
         svarozicGaming = player.GetComponent<SvarozicGaming>();
+        death = player.GetComponent<PlayerDeath>();
         radar = zoom.GetComponent<JelenicaRadar>();
         
         titlovi = GameObject.FindGameObjectWithTag("Titlovi").GetComponent<Titlovi>();
@@ -96,5 +99,21 @@ public class StartDijalog2 : MonoBehaviour
     yield return new WaitUntil(() => raycasting.brojJelenica == 2);
 
     enemy.SetActive(true);
+
+    StartCoroutine(backupSmrt());
+
+
+
+   }
+
+   IEnumerator backupSmrt() {
+    //ubi igraca ako ga ne ubije guja
+
+    yield return new WaitForSeconds(60f);
+
+    if (ProstorEnums.smrtIgraca == ProstorEnums.Smrt.NijeUmro) {
+        death.UbijIgraca();
+    }
+
    }
 }

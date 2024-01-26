@@ -103,7 +103,7 @@ public class ZapocniIgru : MonoBehaviour
             random = Random.Range(0, pozicijeJelenicaCopy.Count);
             jelenica.localPosition = pozicijeJelenicaCopy[random];
             pozicijeJelenicaCopy.RemoveAt(random);
-            Debug.Log(pozicijeJelenicaCopy.Count);
+            //Debug.Log(pozicijeJelenicaCopy.Count);
             
 
 

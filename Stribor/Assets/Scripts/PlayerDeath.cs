@@ -28,6 +28,8 @@ public class PlayerDeath : MonoBehaviour
 
     bool umire;
 
+    public GameObject enemy;
+
     private void Start() {
         playerSkripta = GameObject.FindGameObjectWithTag("Player").GetComponent<FirstPersonController>();
         raycastSkripta = GameObject.FindGameObjectWithTag("Player").GetComponent<RaycastingForItems>();
@@ -44,7 +46,7 @@ public class PlayerDeath : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy" && !umire) {
             UbijIgraca();
-            umire = true;
+            
         } else if (collision.gameObject.tag == "Enemy") {
             float randomPitch = UnityEngine.Random.Range(0.75f, 1.25f);
             audioSource.pitch = randomPitch;
@@ -53,7 +55,17 @@ public class PlayerDeath : MonoBehaviour
         
     }
 
+    IEnumerator RespawnajGuju() {
+        //nakon smrti despawanj ju i respawnaj za minutu
+        enemy.SetActive(false);
+
+        yield return new WaitForSeconds(60f);
+
+        enemy.SetActive(true);
+    }
+
     public void UbijIgraca() {
+        umire = true;
         //iskljuci movement
         playerSkripta.playerCanMove[2] = false;
         playerSkripta.cameraCanMove = false;
@@ -90,6 +102,8 @@ public class PlayerDeath : MonoBehaviour
         Debug.Log("Umro skroz");
         animator.Play("Base Layer.GameFadeIn");
         yield return new WaitForSeconds(8.5f);
+
+        StartCoroutine(RespawnajGuju());
 
         //minusaj jelenice
 

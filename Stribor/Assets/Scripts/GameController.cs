@@ -10,7 +10,7 @@ public class GameController : MonoBehaviour
     private ProstorEnums.Lokacija PrevPlayerLocation;
 
     private GameObject player;
-    private GameObject enemy;
+    public GameObject enemy;
     private ExposureManager exposureManager;
 
     public Vector3 playerExportPosition;
@@ -24,7 +24,7 @@ public class GameController : MonoBehaviour
     private void Start()
     {
         player = GameObject.FindWithTag("Player");
-        enemy = GameObject.FindWithTag("Enemy");
+        //enemy = GameObject.FindWithTag("Enemy");
         exposureManager = player.GetComponent<ExposureManager>();
 
         PlayerLocation = ProstorEnums.lokacijaIgraca;
@@ -104,22 +104,30 @@ public class GameController : MonoBehaviour
 
     private void IsInEnemyFOV()
     {
+        Debug.Log("Testiramo pogled");
         // Check if player is in viewing range of the enemy and if he is in the enemies FOV
         // Adjust FOV so that the enemy is more aware of the player once the player is spotted
         if (!isSpotted) {
             // Field of view = 90 (45 degrees from each side)
             isSpotted = Physics.OverlapSphere(enemy.transform.position, exposureManager.Exposure, LayerMask.GetMask("Player")).Length > 0
-           && Vector3.Dot(enemy.transform.forward, player.transform.position - enemy.transform.position) < 0.707f;  
+           && Vector3.Dot(enemy.transform.forward.normalized, (player.transform.position - enemy.transform.position).normalized) > 0.707f;
+           //Debug.Log(Vector3.Dot(enemy.transform.forward.normalized, (player.transform.position - enemy.transform.position).normalized));
+           
         }
         else
         {
             // Field of view = 150 (75 degrees from each side)
             // If player is close to the enemy, the enemy can't lose him
             isSpotted = (Physics.OverlapSphere(enemy.transform.position, exposureManager.Exposure, LayerMask.GetMask("Player")).Length > 0
-           && Vector3.Dot(enemy.transform.forward, player.transform.position - enemy.transform.position) < 0.259f)
-           || Physics.OverlapSphere(enemy.transform.position, 10f, LayerMask.GetMask("Player")).Length > 0;
+           && Vector3.Dot(enemy.transform.forward.normalized, (player.transform.position - enemy.transform.position).normalized) > 0.259f)
+           || Physics.OverlapSphere(enemy.transform.position, 5f, LayerMask.GetMask("Player")).Length > 0;
+            
         }
         
+    }
+
+    private void OnDrawGizmosSelected() {
+        Gizmos.DrawWireSphere(enemy.transform.position, exposureManager.Exposure);
     }
 
     private void RevealApproxPlayerLocation()

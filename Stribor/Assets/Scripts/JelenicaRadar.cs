@@ -4,6 +4,7 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
+using UnityEngine.Rendering.HighDefinition;
 using UnityEngine.Rendering.Universal;
 
 public class JelenicaRadar : MonoBehaviour
@@ -22,12 +23,16 @@ public class JelenicaRadar : MonoBehaviour
 
     public List<AudioClip> radarZvukovi = new List<AudioClip>();
 
+    ExposureManager exposureManager;
+
     // Start is called before the first frame update
     void Start()
     {
         radar = GetComponent<ParticleSystem>();
         
         radarKey = KeyCode.G;
+
+        exposureManager = GameObject.FindGameObjectWithTag("Player").GetComponent<ExposureManager>();
     }
 
     // Update is called once per frame
@@ -42,6 +47,8 @@ public class JelenicaRadar : MonoBehaviour
             radar.Play();
 
             //zvukRadara.Play();
+
+            exposureManager.Exposure += 10;
 
             lastUsed = Time.time;
         }

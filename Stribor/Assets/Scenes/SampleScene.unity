@@ -5794,7 +5794,7 @@ GameObject:
   - component: {fileID: 305624605}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6351,6 +6351,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba0b4a0b20ae0ab42896cd9f55ef0acd, type: 3}
+--- !u!1 &375175292 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2380461295628357541, guid: f5ae51d619748bb45ba3366f13373279,
+    type: 3}
+  m_PrefabInstance: {fileID: 1286170281813395826}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &376444871
 Mesh:
   m_ObjectHideFlags: 0
@@ -37573,6 +37579,7 @@ MonoBehaviour:
   respawnPos: {fileID: 1024718183}
   zapocniIgruSkripta: {fileID: 1754924707}
   audioSource: {fileID: 1819444402}
+  enemy: {fileID: 1915682124}
 --- !u!82 &1819444402
 AudioSource:
   m_ObjectHideFlags: 0
@@ -44288,7 +44295,7 @@ Transform:
   m_GameObject: {fileID: 1915682124}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -5.172035, y: -0.95, z: -5.006546}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -52426,7 +52433,7 @@ PrefabInstance:
     - target: {fileID: 9031264617315058896, guid: f5ae51d619748bb45ba3366f13373279,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 129.93875
+      value: 129.78004
       objectReference: {fileID: 0}
     - target: {fileID: 9031264617315058896, guid: f5ae51d619748bb45ba3366f13373279,
         type: 3}
@@ -52436,12 +52443,12 @@ PrefabInstance:
     - target: {fileID: 9031264617315058896, guid: f5ae51d619748bb45ba3366f13373279,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 165.86914
+      value: 165.78615
       objectReference: {fileID: 0}
     - target: {fileID: 9031264617315058896, guid: f5ae51d619748bb45ba3366f13373279,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.90228003
       objectReference: {fileID: 0}
     - target: {fileID: 9031264617315058896, guid: f5ae51d619748bb45ba3366f13373279,
         type: 3}
@@ -52451,7 +52458,7 @@ PrefabInstance:
     - target: {fileID: 9031264617315058896, guid: f5ae51d619748bb45ba3366f13373279,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: -0.43115053
       objectReference: {fileID: 0}
     - target: {fileID: 9031264617315058896, guid: f5ae51d619748bb45ba3366f13373279,
         type: 3}
@@ -52466,7 +52473,7 @@ PrefabInstance:
     - target: {fileID: 9031264617315058896, guid: f5ae51d619748bb45ba3366f13373279,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -51.081
       objectReference: {fileID: 0}
     - target: {fileID: 9031264617315058896, guid: f5ae51d619748bb45ba3366f13373279,
         type: 3}
@@ -53406,6 +53413,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3634543182464756233, guid: 9c3d35c986118bf45897dffa0617236c,
+        type: 3}
+      propertyPath: enemy
+      value: 
+      objectReference: {fileID: 375175292}
+    - target: {fileID: 3634543182464756233, guid: 9c3d35c986118bf45897dffa0617236c,
+        type: 3}
+      propertyPath: isSpotted
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3634543182464756233, guid: 9c3d35c986118bf45897dffa0617236c,
         type: 3}
       propertyPath: lokacijaDictHolder

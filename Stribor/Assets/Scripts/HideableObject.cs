@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.HighDefinition;
 
 public class HideableObject : MonoBehaviour
 {
@@ -23,6 +24,8 @@ public class HideableObject : MonoBehaviour
 
     public AudioClip hideSound;
 
+    ExposureManager exposureManager;
+
     bool isHiding;
     // Start is called before the first frame update
     void Start()
@@ -32,6 +35,7 @@ public class HideableObject : MonoBehaviour
         playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<FirstPersonController>();
         playerCollider1 = GameObject.FindGameObjectWithTag("Player").GetComponent<CapsuleCollider>();
         playerCollider2 = GameObject.FindGameObjectWithTag("Player").transform.Find("Collider2").GetComponent<CapsuleCollider>();
+        exposureManager = GameObject.FindGameObjectWithTag("Player").GetComponent<ExposureManager>();
     }
 
     // Update is called once per frame
@@ -62,6 +66,10 @@ public class HideableObject : MonoBehaviour
         playerCollider2.enabled = false;
 
         audioSource.PlayOneShot(hideSound);
+
+        exposureManager.ExposureTarget -= 50;
+
+        exposureManager.ExposureRate = 0.1f;
 
         StartCoroutine("Unhide");
 
@@ -95,6 +103,10 @@ public class HideableObject : MonoBehaviour
         playerCollider2.enabled = true;
 
         audioSource.PlayOneShot(hideSound);
+
+        exposureManager.ExposureTarget += 50;
+
+        exposureManager.ExposureRate = 0.5f;
 
 
     }
