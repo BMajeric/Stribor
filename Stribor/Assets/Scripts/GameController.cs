@@ -19,7 +19,7 @@ public class GameController : MonoBehaviour
     public List<Transform> exportDestinations;
     public List<Transform> exportPlayerDestinations;
 
-    public bool isSpotted;
+    public bool isSpotted = false;
 
     private void Start()
     {
