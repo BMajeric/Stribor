@@ -27,7 +27,7 @@ public class HideableObject : MonoBehaviour
     ExposureManager exposureManager;
 
     bool isHiding;
-    // Start is called before the first frame update
+    // Start is called before the first frame updatea
     void Start()
     {
         gameObject.GetComponent<Outline>().enabled = false;
@@ -80,6 +80,8 @@ public class HideableObject : MonoBehaviour
     }
 
     IEnumerator Unhide() {
+
+        yield return new WaitForEndOfFrame();
 
         yield return new WaitForEndOfFrame();
 

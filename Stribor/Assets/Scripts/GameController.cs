@@ -89,7 +89,7 @@ public class GameController : MonoBehaviour
         
         
 
-        Debug.Log("LOKACIJA: " + PlayerLocation);
+        //Debug.Log("LOKACIJA: " + PlayerLocation);
         if (isSpotted)
         {
             playerExportPosition = player.transform.position;

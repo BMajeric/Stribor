@@ -71,9 +71,11 @@ public class Subtitles : MonoBehaviour
         {
             m_System = Instantiate(system, transform);
             if (hideObject) m_System.gameObject.hideFlags = HideFlags.HideInHierarchy;
-            m_Image = m_System.GetComponent<Image>();
             m_Transform = m_System.transform;
             m_Transform.transform.SetAsFirstSibling();
+            m_Image = m_System.GetComponent<Image>();
+            m_Image.color = new Color(r: 0f, g: 0f, b:0f, a:0.5f);
+            
         }
 
         if (subtitles != null) { Debug.LogWarning("Multiple subtitle systems detected, global static methods will not work"); return; }
@@ -83,8 +85,10 @@ public class Subtitles : MonoBehaviour
 
     private void Update()
     {
+        m_Image.color = new Color(r: 0f, g: 0f, b:0f, a:0.5f);
         if (m_Transform.childCount == 0) m_Image.enabled = false;
         else m_Image.enabled = true;
+        //m_Image.enabled = false;
     }
 
     private IEnumerator Fade(GameObject dialogue, float duration)

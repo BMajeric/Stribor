@@ -41,8 +41,22 @@ public class Titlovi : MonoBehaviour
 
 
     void popuniDict() {
+        var titloviTekst = Resources.Load<TextAsset>("Titlovi");
+        //Debug.Log(titloviTekst.text);
+
         //funkicja sa SVIM LINEOVIMA
-        string[] linije = File.ReadAllLines("./Assets/Scripts/Data/Titlovi.txt");
+        string[] linijeAsset;
+        List<string> linije = new List<string>();
+        string linija2;
+
+        linijeAsset = titloviTekst.text.Split("\n");
+
+        foreach (string linija in linijeAsset) {
+            linija2 = linija.Trim();
+            linije.Add(linija2);
+            
+        }
+
 
         listaDictionarya.Add(bitneInformacije);
         listaDictionarya.Add(korisneInformacije);
@@ -63,7 +77,7 @@ public class Titlovi : MonoBehaviour
                 continue;
             }
 
-            if (linija == "") {
+            if (linija.Length < 2) {
                 //idi na sljedeci kljuc
                 sljedeciKljuc = true;
                 //Debug.Log("Sljedeci kljuc");
@@ -72,8 +86,10 @@ public class Titlovi : MonoBehaviour
 
             if (linija.Contains("GOTOVO")) {
                 //idi na sljedeci dikcionar
+                sljedeciKljuc = false;
                 indexDict += 1;
                 trenutniDict = listaDictionarya[indexDict];
+                //Debug.Log("Gotov " + indexDict.ToString());
                 continue;
             }
 
@@ -166,6 +182,8 @@ public class Titlovi : MonoBehaviour
         ukljuciTitlove("ObjasnjavanjeSistemaIgre");
         ukljuciTitlove("Skrivanje");
         ukljuciTitlove("BezUpgradea");
+        
+        
 
         foreach (string linija in korisneInformacije["PocetakIgre"]) {
             ukljuceniTitloviPocetak.Add(linija);
@@ -210,6 +228,7 @@ public class Titlovi : MonoBehaviour
                 cooldownStart = Time.time;
 
                 Subtitles.Show(odabraniTitl, 5f, SubtitleEffect.Both, 25);
+                Debug.Log(odabraniTitl);
                 //makni titl iz liste i zapisi ga u biljeske
                 bitniUkljuceniTitlovi.Remove(odabraniTitl);
                 biljeske.Add(odabraniTitl);
@@ -222,6 +241,7 @@ public class Titlovi : MonoBehaviour
                 cooldownStart = Time.time;
 
                 Subtitles.Show(odabraniTitl, 5f, SubtitleEffect.Both, 25);
+                Debug.Log(odabraniTitl);
             } else {
                 Subtitles.Show("Nemam ništa za reći, idemo dalje.", 5f, SubtitleEffect.Both, 25);
             }
