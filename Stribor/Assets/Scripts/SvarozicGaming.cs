@@ -73,7 +73,7 @@ public class SvarozicGaming : MonoBehaviour
 
         LaunchForce = 40f;
 
-        SvaroziciTekst.text = "Svarozici: " + BrojSvarozica;
+        SvaroziciTekst.text = "Domaci: " + BrojSvarozica;
 
         SvarozicURuci = SvarozicSnage[0];
 

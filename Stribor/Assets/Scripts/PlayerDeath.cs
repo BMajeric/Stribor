@@ -26,7 +26,7 @@ public class PlayerDeath : MonoBehaviour
 
     public AudioSource audioSource;
 
-    bool umire;
+    public bool umire;
 
     public GameObject enemy;
 

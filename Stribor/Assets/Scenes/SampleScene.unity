@@ -17981,7 +17981,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Jelenice X 0
+  m_text: 'Jelenice: 0'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -37579,6 +37579,7 @@ MonoBehaviour:
   respawnPos: {fileID: 1024718183}
   zapocniIgruSkripta: {fileID: 1754924707}
   audioSource: {fileID: 1819444402}
+  umire: 0
   enemy: {fileID: 1915682124}
 --- !u!82 &1819444402
 AudioSource:

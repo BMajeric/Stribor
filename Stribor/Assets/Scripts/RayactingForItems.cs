@@ -131,7 +131,7 @@ public class RaycastingForItems : MonoBehaviour
             break;
 
             case "Svarozic":
-            tooltips.text = "(" + pickUpKey.ToString() + ") Skupi svarožića";
+            tooltips.text = "(" + pickUpKey.ToString() + ") Skupi domaćeg";
             if (skupi) {
                 svarozicSkripta.BrojSvarozica += 1;
                 svarozicSkripta.SvaroziciTekst.text = "Domaći: " + svarozicSkripta.BrojSvarozica;
@@ -143,7 +143,7 @@ public class RaycastingForItems : MonoBehaviour
                 hitObject = null;
                 item = null;
 
-                Debug.Log("Svarozic skupljen");
+                Debug.Log("SDomaći skupljen");
             }
             break;
 

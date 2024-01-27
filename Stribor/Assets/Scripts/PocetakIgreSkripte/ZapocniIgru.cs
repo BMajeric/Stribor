@@ -42,6 +42,8 @@ public class ZapocniIgru : MonoBehaviour
 
     public GameObject enemies;
 
+    PlayerDeath death;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -65,6 +67,7 @@ public class ZapocniIgru : MonoBehaviour
         raycasting = player.GetComponent<RaycastingForItems>();
         svarozicGaming = player.GetComponent<SvarozicGaming>();
         radar = zoom.GetComponent<JelenicaRadar>();
+        death = player.GetComponent<PlayerDeath>();
         
         titlovi = GameObject.FindGameObjectWithTag("Titlovi").GetComponent<Titlovi>();
 
@@ -76,7 +79,11 @@ public class ZapocniIgru : MonoBehaviour
         titlovi.pocetak = false;
         triger1.SetActive(false);
         svarozicURuci.SetActive(true);
-        enemies.SetActive(true);
+
+        if (!death.umire) {
+            enemies.SetActive(true);
+        }
+        
 
         
     }

@@ -27,6 +27,12 @@ public class EnemyController : MonoBehaviour
     [SerializeField]
     private AudioSource playerRanAwaySound;
 
+    private float timeSpentOnDestination; //unstuck mehanika ako treba predugo vremenski
+
+    private Vector3 positionUnstuck;
+
+    private Vector3 prevPositionUnstuck; //unstuck ako smo na istom mjestu predugo
+
     void Start()
     {
         walking = true;
@@ -37,6 +43,7 @@ public class EnemyController : MonoBehaviour
         randDestIndex = Random.Range(0, destinations.Count);
         currentDestination = destinations[randDestIndex];
         moreLikelyestinations = new List<Transform>();
+        StartCoroutine(CheckIfStuck());
 
     }
 
@@ -123,6 +130,39 @@ public class EnemyController : MonoBehaviour
     IEnumerator WaitingCoroutine(int seconds)
     {
         yield return new WaitForSeconds(seconds);
+    }
+
+    IEnumerator CheckIfStuck() {
+        prevPositionUnstuck = this.transform.position;
+
+        yield return new WaitForSeconds(30f);
+
+        positionUnstuck = this.transform.position;
+
+        if (Vector3.Distance(positionUnstuck, prevPositionUnstuck) < 3f && !chasing) {
+            Debug.Log("Enemy stuck, redirecting");
+           if (moreLikelyestinations.Count > 0)
+            {
+                randDestIndex = Random.Range(0, moreLikelyestinations.Count);
+                currentDestination = moreLikelyestinations[randDestIndex];
+            }
+            else
+            {
+                randDestIndex = Random.Range(0, destinations.Count);
+                ///randDestIndex = (randDestIndex + 1) % destinations.Count;
+                currentDestination = destinations[randDestIndex];
+                //Debug.Log("Random Index: " + randDestIndex.ToString());
+            }
+
+            walkSpeed = 5f;
+        } else {
+            Debug.Log("Not stuck");
+            walkSpeed = 3f;
+        }
+
+        StartCoroutine(CheckIfStuck());
+
+        
     }
 
     
