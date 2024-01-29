@@ -434,13 +434,20 @@ public class FirstPersonController : MonoBehaviour
                 if (Input.GetAxis("Horizontal") != 0f && Input.GetAxis("Vertical") != 0f) {
                     targetVelocity *= 0.7f;
                 }
-
+                //Debug.Log(slopeAngle);
                 if (!isGrounded) {
-                    targetVelocity *= 0.5f;
+                    if (slopeAngle > 55f) {
+                        targetVelocity.x *= 0.5f;
+                        targetVelocity.y = 0f;
+                        targetVelocity.z *= 0.5f;
+                    }
                     float omjer = Math.Max(Math.Min(slopeAngle / maxSlopeAngle, 1.5f), 1f);
                     //Debug.Log(omjer);
-                    targetVelocity.x += (1f - hitNormal.y) * hitNormal.x * 4f * omjer;
-                    targetVelocity.z += (1f - hitNormal.y) * hitNormal.z * 4f * omjer;
+                    //targetVelocity.x += (1f - hitNormal.y) * hitNormal.x * 6f * omjer;
+                    //targetVelocity.z += (1f - hitNormal.y) * hitNormal.z * 6f * omjer;
+                    targetVelocity.y -= 10f;
+                    //targetVelocity *= 0.9f;
+                    
                 }
 
                 //Debug.Log(targetVelocity.magnitude);
@@ -471,7 +478,7 @@ public class FirstPersonController : MonoBehaviour
                     }
                 }
 
-                rb.AddForce(velocityChange, ForceMode.VelocityChange);
+                rb.AddForce(velocityChange, ForceMode.Impulse);
             }
             // All movement calculations while walking
             else
@@ -493,11 +500,18 @@ public class FirstPersonController : MonoBehaviour
 
                 //sliding velocity
                 if (!isGrounded) {
-                    targetVelocity *= 0.5f;
+                    if (slopeAngle > 55f) {
+                        targetVelocity.x *= 0.5f;
+                        targetVelocity.y = 0f;
+                        targetVelocity.z *= 0.5f;
+                    }
                     float omjer = Math.Max(Math.Min(slopeAngle / maxSlopeAngle, 1.5f), 1f);
                     //Debug.Log(omjer);
-                    targetVelocity.x += (1f - hitNormal.y) * hitNormal.x * 3f * omjer;
-                    targetVelocity.z += (1f - hitNormal.y) * hitNormal.z * 3f * omjer;
+                    //targetVelocity.x += (1f - hitNormal.y) * hitNormal.x * 6f * omjer;
+                    //targetVelocity.z += (1f - hitNormal.y) * hitNormal.z * 6f * omjer;
+                    targetVelocity.y -= 10f;
+                    targetVelocity *= 0.9f;
+                    
                 }
 
                 // Apply a force that attempts to reach our target velocity
@@ -570,7 +584,7 @@ public class FirstPersonController : MonoBehaviour
         // Adds force to the player rigidbody to jump
         if (isGrounded)
         {
-            rb.AddForce(0f, jumpPower, 0f, ForceMode.Impulse);
+            rb.AddForce(0f, -rb.velocity.y + jumpPower, 0f, ForceMode.Impulse);
             isGrounded = false;
         }
 
