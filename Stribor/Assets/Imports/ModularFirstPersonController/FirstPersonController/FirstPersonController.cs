@@ -139,7 +139,7 @@ public class FirstPersonController : MonoBehaviour
 
     private bool onSteepSlope;
 
-    public float maxSlopeAngle = 50f;
+    public float maxSlopeAngle = 40f;
 
     public Vector3 hitNormal;
 
@@ -170,7 +170,6 @@ public class FirstPersonController : MonoBehaviour
             sprintRemaining = sprintDuration;
             sprintCooldownReset = sprintCooldown;
         }
-        maxSlopeAngle = 50f;
     }
 
     void Start()
@@ -437,7 +436,7 @@ public class FirstPersonController : MonoBehaviour
                 }
                 //Debug.Log(slopeAngle);
                 if (!isGrounded) {
-                    if (slopeAngle > 60f) {
+                    if (slopeAngle > 55f) {
                         targetVelocity.x *= 0.5f;
                         targetVelocity.y = 0f;
                         targetVelocity.z *= 0.5f;
@@ -447,7 +446,7 @@ public class FirstPersonController : MonoBehaviour
                     //targetVelocity.x += (1f - hitNormal.y) * hitNormal.x * 6f * omjer;
                     //targetVelocity.z += (1f - hitNormal.y) * hitNormal.z * 6f * omjer;
                     targetVelocity.y -= 10f;
-                    targetVelocity *= 0.9f;
+                    //targetVelocity *= 0.9f;
                     
                 }
 
@@ -501,7 +500,7 @@ public class FirstPersonController : MonoBehaviour
 
                 //sliding velocity
                 if (!isGrounded) {
-                    if (slopeAngle > 60f) {
+                    if (slopeAngle > 55f) {
                         targetVelocity.x *= 0.5f;
                         targetVelocity.y = 0f;
                         targetVelocity.z *= 0.5f;
@@ -538,7 +537,6 @@ public class FirstPersonController : MonoBehaviour
         float distance = 1f;
         Vector3 smjerKretanja = (rb.velocity.normalized + Vector3.down).normalized;
         Debug.DrawRay(origin, smjerKretanja, Color.blue, 2);
-        Debug.Log(maxSlopeAngle);
 
         if (Physics.Raycast(origin, direction, out RaycastHit hit, distance))
         {
@@ -553,9 +551,7 @@ public class FirstPersonController : MonoBehaviour
             
             //Debug.Log(slopeAngle);
             isGrounded = slopeAngle < maxSlopeAngle;
-            //isGrounded = true;
         }
-        
         else if (Physics.Raycast(origin, smjerKretanja, out RaycastHit hit2, distance) && smjerKretanja.normalized != Vector3.down) 
         {
             Vector3 hitNormal2 = hit2.normal;
@@ -573,14 +569,12 @@ public class FirstPersonController : MonoBehaviour
 
         } else 
         {
-            Debug.Log("Raycast fulo");
             isGrounded = false;
             Jumped = false;
         }
         
 
         //Debug.Log(slopeAngle);
-        //Debug.Log(isGrounded);
         
     }
 
