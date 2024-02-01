@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Stribor/Assets/Scripts/Player/DebugFizika.cs.meta
 guid: 7f036eb02c70e41498136baf2477c613
+========
+guid: 796a98a8db01eef47b8a15145affc09a
+>>>>>>>> parent of 05d408d (bruh):Stribor/Assets/Scripts/Player/SlopeHandler.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
