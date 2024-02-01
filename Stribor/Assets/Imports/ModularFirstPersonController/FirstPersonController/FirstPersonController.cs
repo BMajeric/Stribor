@@ -218,6 +218,8 @@ public class FirstPersonController : MonoBehaviour
             sprintBar.gameObject.SetActive(false);
         }
 
+        Debug.Log(maxSlopeAngle);
+
         #endregion
     }
 
@@ -438,15 +440,16 @@ public class FirstPersonController : MonoBehaviour
                 if (!isGrounded) {
                     if (slopeAngle > 55f) {
                         targetVelocity.x *= 0.5f;
-                        targetVelocity.y = 0f;
                         targetVelocity.z *= 0.5f;
+                        rb.AddForce(Vector3.down * 1f, ForceMode.Impulse);
+                        
                     }
                     float omjer = Math.Max(Math.Min(slopeAngle / maxSlopeAngle, 1.5f), 1f);
                     //Debug.Log(omjer);
                     //targetVelocity.x += (1f - hitNormal.y) * hitNormal.x * 6f * omjer;
                     //targetVelocity.z += (1f - hitNormal.y) * hitNormal.z * 6f * omjer;
-                    targetVelocity.y -= 10f;
-                    //targetVelocity *= 0.9f;
+                    //targetVelocity.y -= 100f;
+                    targetVelocity *= 0.9f;
                     
                 }
 
@@ -502,14 +505,14 @@ public class FirstPersonController : MonoBehaviour
                 if (!isGrounded) {
                     if (slopeAngle > 55f) {
                         targetVelocity.x *= 0.5f;
-                        targetVelocity.y = 0f;
                         targetVelocity.z *= 0.5f;
+                        rb.AddForce(Vector3.down * 1f, ForceMode.Impulse);
                     }
                     float omjer = Math.Max(Math.Min(slopeAngle / maxSlopeAngle, 1.5f), 1f);
                     //Debug.Log(omjer);
                     //targetVelocity.x += (1f - hitNormal.y) * hitNormal.x * 6f * omjer;
                     //targetVelocity.z += (1f - hitNormal.y) * hitNormal.z * 6f * omjer;
-                    targetVelocity.y -= 10f;
+                    //targetVelocity.y -= 100f;
                     targetVelocity *= 0.9f;
                     
                 }
