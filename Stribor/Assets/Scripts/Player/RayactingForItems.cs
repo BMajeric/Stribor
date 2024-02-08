@@ -240,7 +240,7 @@ public class RaycastingForItems : MonoBehaviour
 
         if (Physics.Raycast(ociLevel.position, Camera.main.transform.forward, out hit, 2)) {
             //13 je item layer
-            if (hit.transform.gameObject.layer != 13) {
+            if (hit.transform.gameObject.layer != 13 && hit.transform.gameObject.layer != 3) {
                 //pogodio neki shit
                 pogodioZid = true;
             } else {

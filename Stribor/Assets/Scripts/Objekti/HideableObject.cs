@@ -16,7 +16,7 @@ public class HideableObject : MonoBehaviour
     //za postaviti igraca
     public Transform hidingPos;
 
-    CapsuleCollider playerCollider1;
+    BoxCollider playerCollider1;
 
     CapsuleCollider playerCollider2;
 
@@ -33,7 +33,7 @@ public class HideableObject : MonoBehaviour
         gameObject.GetComponent<Outline>().enabled = false;
         isHiding = false;
         playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<FirstPersonController>();
-        playerCollider1 = GameObject.FindGameObjectWithTag("Player").GetComponent<CapsuleCollider>();
+        playerCollider1 = GameObject.FindGameObjectWithTag("Player").GetComponent<BoxCollider>();
         playerCollider2 = GameObject.FindGameObjectWithTag("Player").transform.Find("Collider2").GetComponent<CapsuleCollider>();
         exposureManager = GameObject.FindGameObjectWithTag("Player").GetComponent<ExposureManager>();
     }

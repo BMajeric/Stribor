@@ -145,6 +145,10 @@ public class FirstPersonController : MonoBehaviour
 
     public float slopeAngle;
 
+    float downwardSlopeForce = 0.2f;
+
+    bool uppingForce = false;
+
     #endregion
 
     
@@ -441,7 +445,13 @@ public class FirstPersonController : MonoBehaviour
                     if (slopeAngle > 55f) {
                         targetVelocity.x *= 0.5f;
                         targetVelocity.z *= 0.5f;
-                        rb.AddForce(Vector3.down * 1f, ForceMode.Impulse);
+                        
+                        if (!uppingForce) {
+                            uppingForce = true;
+                            StartCoroutine(upSlopeForce());
+                        }
+
+                        rb.AddForce(Vector3.down * downwardSlopeForce, ForceMode.Impulse);
                         
                     }
                     float omjer = Math.Max(Math.Min(slopeAngle / maxSlopeAngle, 1.5f), 1f);
@@ -506,7 +516,13 @@ public class FirstPersonController : MonoBehaviour
                     if (slopeAngle > 55f) {
                         targetVelocity.x *= 0.5f;
                         targetVelocity.z *= 0.5f;
-                        rb.AddForce(Vector3.down * 1f, ForceMode.Impulse);
+
+                        if (!uppingForce) {
+                            uppingForce = true;
+                            StartCoroutine(upSlopeForce());
+                        }
+
+                        rb.AddForce(Vector3.down * 0.5f, ForceMode.Impulse);
                     }
                     float omjer = Math.Max(Math.Min(slopeAngle / maxSlopeAngle, 1.5f), 1f);
                     //Debug.Log(omjer);
@@ -648,6 +664,22 @@ public class FirstPersonController : MonoBehaviour
             timer = 0;
             joint.localPosition = new Vector3(Mathf.Lerp(joint.localPosition.x, jointOriginalPos.x, Time.deltaTime * bobSpeed), Mathf.Lerp(joint.localPosition.y, jointOriginalPos.y, Time.deltaTime * bobSpeed), Mathf.Lerp(joint.localPosition.z, jointOriginalPos.z, Time.deltaTime * bobSpeed));
         }
+    }
+
+    IEnumerator upSlopeForce() {
+
+        downwardSlopeForce += 0.1f;
+
+        yield return new WaitForSeconds(1f);
+
+        if (!isGrounded && slopeAngle > 55f) {
+            StartCoroutine(upSlopeForce());
+
+        } else {
+            downwardSlopeForce = 0.2f;
+            uppingForce = false;
+        }
+
     }
 
     
