@@ -189,7 +189,7 @@ public class TamnaSumaArea : MonoBehaviour
         float lerpedVignette = Mathf.Lerp(0.25f, 1f, t);
 
 
-        vinjeta.intensity.value = lerpedVignette;
+        //vinjeta.intensity.value = lerpedVignette;
 
         yield return new WaitForSeconds(0.1f);
 
@@ -212,7 +212,7 @@ public class TamnaSumaArea : MonoBehaviour
         float lerpedVignette = Mathf.Lerp(1f, 0.25f, t);
 
 
-        vinjeta.intensity.value = lerpedVignette;
+        //vinjeta.intensity.value = lerpedVignette;
 
         yield return new WaitForSeconds(0.1f);
 

@@ -302,11 +302,12 @@ public class FirstPersonController : MonoBehaviour
         #endregion
 
         #region Sprint
-
+        playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, fov, sprintFOVStepTime * Time.deltaTime);
         if(enableSprint)
         {
             if(isSprinting)
             {
+                fov = 80f;
                 isZoomed = false;
                 playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, sprintFOV, sprintFOVStepTime * Time.deltaTime);
 
@@ -327,7 +328,7 @@ public class FirstPersonController : MonoBehaviour
             else
             {
                 // Regain sprint while not sprinting
-                
+                fov = 70f;
             }
 
             // Handles sprint cooldown 
