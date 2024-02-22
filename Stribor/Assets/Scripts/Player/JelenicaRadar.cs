@@ -25,6 +25,12 @@ public class JelenicaRadar : MonoBehaviour
 
     ExposureManager exposureManager;
 
+    RaycastingForItems raycasting;
+
+    public SuperRadar superRadar;
+
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,12 +39,14 @@ public class JelenicaRadar : MonoBehaviour
         radarKey = KeyCode.G;
 
         exposureManager = GameObject.FindGameObjectWithTag("Player").GetComponent<ExposureManager>();
+
+        raycasting = GameObject.FindGameObjectWithTag("Player").GetComponent<RaycastingForItems>();
     }
 
     // Update is called once per frame
     private void Update() {
         
-        if (Input.GetKeyDown(radarKey) && Time.time > lastUsed + cooldownTime) {
+        if (Input.GetKeyDown(radarKey) && Time.time > lastUsed + cooldownTime && !raycasting.naTornju) {
 
             AudioClip randomClip = radarZvukovi[Random.Range(0, radarZvukovi.Count)];
 
@@ -51,6 +59,13 @@ public class JelenicaRadar : MonoBehaviour
             exposureManager.Exposure += 10;
 
             lastUsed = Time.time;
+        } else if (raycasting.naTornju && Time.time > lastUsed + cooldownTime && Input.GetKeyDown(radarKey)) {
+
+            //VRIJEME JE ZA JEBENI SUPER RADAR!!!!!!
+
+            lastUsed = Time.time;
+
+            superRadar.SuperRadarPali();
         }
 
 
@@ -78,13 +93,13 @@ public class JelenicaRadar : MonoBehaviour
 
         jelenicaOccluded.SetActive(true);
 
-        StartCoroutine(GasiOcclusion());
+        StartCoroutine(GasiOcclusion(5.0f));
 
     }
 
-    IEnumerator GasiOcclusion() {
+    IEnumerator GasiOcclusion(float vrijeme) {
 
-        yield return new WaitForSeconds(5.0f);
+        yield return new WaitForSeconds(vrijeme);
 
         jelenicaOccluded.SetActive(false);
 

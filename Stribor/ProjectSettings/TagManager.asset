@@ -29,6 +29,7 @@ TagManager:
   - Spilja
   - Kamenolom
   - Crkva
+  - Ladder
   layers:
   - Default
   - TransparentFX
@@ -40,7 +41,7 @@ TagManager:
   - 
   - 
   - Terrain
-  - 
+  - Triggers
   - 
   - 
   - Item

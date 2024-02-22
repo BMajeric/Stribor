@@ -49,6 +49,12 @@ public class RaycastingForItems : MonoBehaviour
 
     public bool pogodioZid;
 
+    public Transform ladderTeleport;
+
+    public bool naTornju;
+
+    Vector3 storedPos; //za skidanje s tornja
+
 
     public List<GameObject> ListaUpgradePointovaISistema; //Lista koja sadrzi objekte, objekt1 su stvaru na koju ce igrac moci kliknuti, a index+1 je particle sistem za to
     void Start()
@@ -60,6 +66,8 @@ public class RaycastingForItems : MonoBehaviour
         vrijeme = vrijemeObjekt.GetComponent<VrijemeSkripta>();
         itemMask = LayerMask.GetMask("Item");
         titlovi = GameObject.FindGameObjectWithTag("Titlovi").GetComponent<Titlovi>();
+
+        naTornju = false;
         
 
     }
@@ -217,6 +225,28 @@ public class RaycastingForItems : MonoBehaviour
                 Debug.Log("Gotova igra");
                 SceneManager.LoadScene("Ending");
             }
+            break;
+
+            case "Ladder":
+            if (naTornju){
+                tooltips.text = "(" + pickUpKey.ToString() + ") Spusti se";
+                if (skupi) {
+                    //popni se na toranj
+                    player.transform.position = storedPos;
+                    naTornju = false;
+                }
+
+            } else {
+                tooltips.text = "(" + pickUpKey.ToString() + ") Popni se";
+                if (skupi) {
+                    //popni se na toranj
+                    storedPos = player.transform.position;
+                    player.transform.position = ladderTeleport.position;
+                    naTornju = true;
+                }
+            }
+            
+            
             break;
 
             default: //za sve Skupi stvari, jelenice, jelen, kljuc, svarozic...

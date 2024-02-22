@@ -112,6 +112,8 @@ public class GameController : MonoBehaviour
             isSpotted = Physics.OverlapSphere(enemy.transform.position, exposureManager.Exposure, LayerMask.GetMask("Player")).Length > 0
            && Vector3.Dot(enemy.transform.forward.normalized, (player.transform.position - enemy.transform.position).normalized) > 0.707f;
            //Debug.Log(Vector3.Dot(enemy.transform.forward.normalized, (player.transform.position - enemy.transform.position).normalized));
+
+           //provjeri je li igrac iza zida
            
         }
         else

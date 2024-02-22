@@ -87,6 +87,10 @@ public class SvarozicGaming : MonoBehaviour
 
     public Mode svarozicMode;
 
+    public GameObject TamnaSumaMagla;
+
+    public GameObject TamnasumaNiskaMagla;
+
     public enum Mode {
         Point,
 
@@ -287,6 +291,14 @@ public class SvarozicGaming : MonoBehaviour
 
             SvarozicFlashlight.intensity = ListaZaSvarozice[snagaSvarozica].flashIntenzitet;
             SvarozicFlashlight.range = ListaZaSvarozice[snagaSvarozica].flashDomet;
+
+            if (snagaSvarozica == 3) {
+                //makni tamnasumamaglu
+                //dodaj maliku neki line
+                TamnaSumaMagla.SetActive(false);
+                TamnasumaNiskaMagla.SetActive(true);
+            }
+
         }
 
     }

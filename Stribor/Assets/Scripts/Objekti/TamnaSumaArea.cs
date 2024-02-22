@@ -85,9 +85,7 @@ public class TamnaSumaArea : MonoBehaviour
 
             StartCoroutine(PromijeniMaglu(0f));
 
-            int index = svarozicSkripta.SvarozicSnage.IndexOf(svarozicSkripta.SvarozicURuci);
-
-            if (index != svarozicSkripta.SvarozicSnage.Count - 1) {
+            if (svarozicSkripta.snagaSvarozica < 3) {
 
                 if (checkSvarozic) {
                     Subtitles.Show("Nisam dovoljno jak za tamnu šumu, ajmo pobjeći prije nego nas uhvati!", 5f, SubtitleEffect.Both, 25);

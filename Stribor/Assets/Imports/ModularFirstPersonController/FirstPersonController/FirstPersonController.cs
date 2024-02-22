@@ -149,6 +149,8 @@ public class FirstPersonController : MonoBehaviour
 
     bool uppingForce = false;
 
+    bool isCrippled = false;
+
     #endregion
 
     
@@ -432,6 +434,8 @@ public class FirstPersonController : MonoBehaviour
                 sprintRemaining = Mathf.Clamp(sprintRemaining += 0.5f * Time.deltaTime, 0, sprintDuration);
             }
 
+            //ako je igrac crippled uspori ga
+
             // All movement calculations while sprint is active
             if (enableSprint && Input.GetKey(sprintKey) && sprintRemaining > 0f && !isSprintCooldown)
             {
@@ -560,32 +564,39 @@ public class FirstPersonController : MonoBehaviour
 
         if (Physics.Raycast(origin, direction, out RaycastHit hit, distance))
         {
+            if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Default") || hit.transform.gameObject.layer == LayerMask.NameToLayer("Terrain")) {
+                hitNormal = hit.normal;
+                slopeAngle = Vector3.Angle(Vector3.up, hitNormal);
+                //napravi jos jedan raycast u smjeru kretanja za super velike uspone
+                
+                
 
-            hitNormal = hit.normal;
-            slopeAngle = Vector3.Angle(Vector3.up, hitNormal);
-            //napravi jos jedan raycast u smjeru kretanja za super velike uspone
-            
-            
+                Debug.DrawRay(origin, direction * distance, Color.red);
+                
+                //Debug.Log(slopeAngle);
+                isGrounded = slopeAngle < maxSlopeAngle;
 
-            Debug.DrawRay(origin, direction * distance, Color.red);
+            }
             
-            //Debug.Log(slopeAngle);
-            isGrounded = slopeAngle < maxSlopeAngle;
         }
         else if (Physics.Raycast(origin, smjerKretanja, out RaycastHit hit2, distance) && smjerKretanja.normalized != Vector3.down) 
         {
-            Vector3 hitNormal2 = hit2.normal;
-            float slopeAngle2 = Vector3.Angle(Vector3.up, hitNormal2);
-            
-            //Debug.Log("Kurcoje");
-            
+            if (hit2.transform.gameObject.layer == LayerMask.NameToLayer("Default") || hit2.transform.gameObject.layer == LayerMask.NameToLayer("Terrain")) {
+                Vector3 hitNormal2 = hit2.normal;
+                float slopeAngle2 = Vector3.Angle(Vector3.up, hitNormal2);
+                
+                //Debug.Log("Kurcoje");
+                
 
-            if (slopeAngle2 > slopeAngle && slopeAngle2 < 90) {
-                slopeAngle = slopeAngle2;
-                hitNormal = hitNormal2;
+                if (slopeAngle2 > slopeAngle && slopeAngle2 < 90) {
+                    slopeAngle = slopeAngle2;
+                    hitNormal = hitNormal2;
+                }
+
+                isGrounded = slopeAngle < maxSlopeAngle;
+
             }
-
-            isGrounded = slopeAngle < maxSlopeAngle;
+            
 
         } else 
         {
