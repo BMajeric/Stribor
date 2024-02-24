@@ -231,9 +231,10 @@ public class RaycastingForItems : MonoBehaviour
             if (naTornju){
                 tooltips.text = "(" + pickUpKey.ToString() + ") Spusti se";
                 if (skupi) {
-                    //popni se na toranj
+                    //spusti se sa toranj
                     player.transform.position = storedPos;
                     naTornju = false;
+                    RenderSettings.fogDensity = 0.02f;
                 }
 
             } else {
@@ -243,6 +244,7 @@ public class RaycastingForItems : MonoBehaviour
                     storedPos = player.transform.position;
                     player.transform.position = ladderTeleport.position;
                     naTornju = true;
+                    RenderSettings.fogDensity = 0.008f;
                 }
             }
             

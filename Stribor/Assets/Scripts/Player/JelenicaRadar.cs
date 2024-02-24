@@ -93,7 +93,7 @@ public class JelenicaRadar : MonoBehaviour
 
         jelenicaOccluded.SetActive(true);
 
-        StartCoroutine(GasiOcclusion(5.0f));
+        StartCoroutine(GasiOcclusion(8.0f));
 
     }
 
