@@ -108,14 +108,14 @@ public class PlayerDeath : MonoBehaviour
 
         //minusaj jelenice
 
-        if (raycastSkripta.brojJelenica >= 2) {
-            raycastSkripta.brojJelenica -= 2;
+        if (raycastSkripta.trenutniBrojJelenica >= 2) {
+            raycastSkripta.trenutniBrojJelenica -= 2;
                 
         } else {
-            raycastSkripta.brojJelenica = 0;
+            raycastSkripta.trenutniBrojJelenica = 0;
         }
 
-        raycastSkripta.JeleniceTekst.text = "Jelenice: " + raycastSkripta.brojJelenica;
+        raycastSkripta.JeleniceTekst.text = "Jelenice: " + raycastSkripta.trenutniBrojJelenica;
 
         //respawnaj te dvije jelenice
 

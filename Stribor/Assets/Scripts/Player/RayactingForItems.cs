@@ -25,6 +25,8 @@ public class RaycastingForItems : MonoBehaviour
 
     public int brojJelenica;
 
+    public int trenutniBrojJelenica;
+
     public GameObject vrijemeObjekt;
 
     private VrijemeSkripta vrijeme;
@@ -54,6 +56,9 @@ public class RaycastingForItems : MonoBehaviour
     public bool naTornju;
 
     Vector3 storedPos; //za skidanje s tornja
+
+    public KotaoSkripta kotao;
+
 
 
     public List<GameObject> ListaUpgradePointovaISistema; //Lista koja sadrzi objekte, objekt1 su stvaru na koju ce igrac moci kliknuti, a index+1 je particle sistem za to
@@ -127,7 +132,8 @@ public class RaycastingForItems : MonoBehaviour
             tooltips.text = "(" + pickUpKey.ToString() + ") Skupi jelenicu";
             if (skupi) {
                 brojJelenica += 1;
-                JeleniceTekst.text = "Jelenice: " + brojJelenica;
+                trenutniBrojJelenica += 1;
+                JeleniceTekst.text = "Jelenice: " + trenutniBrojJelenica;
                 itemSound.PlayOneShot(pickUo);
 
                 hitObject.SetActive(false);
@@ -220,10 +226,17 @@ public class RaycastingForItems : MonoBehaviour
 
             case "Kotao":
             tooltips.text = "(" + pickUpKey.ToString() + ") Skuhaj jelenice";
-            if (skupi && brojJelenica == 12) {
+            if (skupi && kotao.brojSkuhanihJelenica == 12) {
                 //endaj game
-                Debug.Log("Gotova igra");
-                SceneManager.LoadScene("Ending");
+                kotao.krajIgre();
+            } else if (skupi && kotao.brojSkuhanihJelenica != 12) {
+                //skuhaj jelenicu i dodaj broj na counter
+                kotao.skuhajJelenice(trenutniBrojJelenica);
+                trenutniBrojJelenica = 0;
+            } 
+            else {
+                //ukljuci canvas za videnje broja jelenica
+                kotao.prikaziTekst();
             }
             break;
 
