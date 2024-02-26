@@ -59,6 +59,8 @@ public class RaycastingForItems : MonoBehaviour
 
     public KotaoSkripta kotao;
 
+    
+
 
 
     public List<GameObject> ListaUpgradePointovaISistema; //Lista koja sadrzi objekte, objekt1 su stvaru na koju ce igrac moci kliknuti, a index+1 je particle sistem za to
@@ -229,7 +231,7 @@ public class RaycastingForItems : MonoBehaviour
             if (skupi && kotao.brojSkuhanihJelenica == 12) {
                 //endaj game
                 kotao.krajIgre();
-            } else if (skupi && kotao.brojSkuhanihJelenica != 12) {
+            } else if (skupi && kotao.brojSkuhanihJelenica != 12 && trenutniBrojJelenica > 0) {
                 //skuhaj jelenicu i dodaj broj na counter
                 kotao.skuhajJelenice(trenutniBrojJelenica);
                 trenutniBrojJelenica = 0;
@@ -248,6 +250,7 @@ public class RaycastingForItems : MonoBehaviour
                     player.transform.position = storedPos;
                     naTornju = false;
                     RenderSettings.fogDensity = 0.02f;
+                    GameObject.FindGameObjectWithTag("Ladder").GetComponent<AudioSource>().Play();
                 }
 
             } else {
@@ -258,6 +261,7 @@ public class RaycastingForItems : MonoBehaviour
                     player.transform.position = ladderTeleport.position;
                     naTornju = true;
                     RenderSettings.fogDensity = 0.008f;
+                    GameObject.FindGameObjectWithTag("Ladder").GetComponent<AudioSource>().Play();
                 }
             }
             

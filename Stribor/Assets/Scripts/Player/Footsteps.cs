@@ -7,7 +7,7 @@ public class Footsteps : MonoBehaviour
 
     FirstPersonController playerSkripta;
 
-    private AudioSource audioSource;
+    public AudioSource audioSource;
 
     public float timeBetweenSteps;
 
@@ -61,6 +61,8 @@ public class Footsteps : MonoBehaviour
         } else {
             pod = "";
         }
+
+        Debug.Log(pod);
 
         if (playerSkripta.isWalking && Time.time - vrijemeOdKoraka >= timeBetweenSteps * omjerTrcanja) {
             AudioClip randomZvuk;

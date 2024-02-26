@@ -11,6 +11,8 @@ public class JelenicaRadar : MonoBehaviour
 {
     ParticleSystem radar;
     float cooldownTime = 8.0f;
+
+    float cooldownTimeSuperRadar = 20.0f;
     float lastUsed;
 
     public KeyCode radarKey;
@@ -29,6 +31,8 @@ public class JelenicaRadar : MonoBehaviour
 
     public SuperRadar superRadar;
 
+    PlayerDeath death;
+
 
 
     // Start is called before the first frame update
@@ -41,12 +45,14 @@ public class JelenicaRadar : MonoBehaviour
         exposureManager = GameObject.FindGameObjectWithTag("Player").GetComponent<ExposureManager>();
 
         raycasting = GameObject.FindGameObjectWithTag("Player").GetComponent<RaycastingForItems>();
+
+        death = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerDeath>();
     }
 
     // Update is called once per frame
     private void Update() {
         
-        if (Input.GetKeyDown(radarKey) && Time.time > lastUsed + cooldownTime && !raycasting.naTornju) {
+        if (Input.GetKeyDown(radarKey) && Time.time > lastUsed + cooldownTime && !raycasting.naTornju && !death.umire) {
 
             AudioClip randomClip = radarZvukovi[Random.Range(0, radarZvukovi.Count)];
 
@@ -59,7 +65,7 @@ public class JelenicaRadar : MonoBehaviour
             exposureManager.Exposure += 10;
 
             lastUsed = Time.time;
-        } else if (raycasting.naTornju && Time.time > lastUsed + cooldownTime && Input.GetKeyDown(radarKey)) {
+        } else if (raycasting.naTornju && Time.time > lastUsed + cooldownTimeSuperRadar && Input.GetKeyDown(radarKey) && !death.umire) {
 
             //VRIJEME JE ZA JEBENI SUPER RADAR!!!!!!
 

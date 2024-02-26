@@ -75,6 +75,7 @@ public class PlayerDeath : MonoBehaviour
         audioSource.Play();
         RenderSettings.fogDensity = 0.02f;
 
+
         StartCoroutine(OkreciIgraca(0f));
 
 

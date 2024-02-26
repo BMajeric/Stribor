@@ -13,6 +13,9 @@ public class KotaoSkripta : MonoBehaviour
     RaycastingForItems raycasting;
 
     public int brojSkuhanihJelenica;
+
+    public AudioClip sizzling;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -46,6 +49,8 @@ public class KotaoSkripta : MonoBehaviour
         brojSkuhanihJelenica += brojZaSkuhat;
 
         jelenicaUKotlu.text = brojSkuhanihJelenica.ToString() + "/12";
+
+        gameObject.GetComponent<AudioSource>().PlayOneShot(sizzling);
 
     }
 
