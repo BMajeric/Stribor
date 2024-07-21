@@ -1,7 +1,16 @@
 # Stribor
 3D Survival Horror igrica inspirirana slavenskom mitologijom i hrvatskim bajkama. Napravljena u Unityu u sklopu vještine za FER.
-![mudri hrast](https://github.com/user-attachments/assets/c19e05ef-e7cd-4124-acaf-679e362d7d3b)
+
 ## Opis
+![ikona](https://github.com/user-attachments/assets/e451e24e-f0dc-4f31-ac95-fcc265ccb992)
+
+![mainmenu](https://github.com/user-attachments/assets/631736b0-e2aa-4fdf-bff2-7e700dfef2fc)
+
+![skrin1](https://github.com/user-attachments/assets/fe8c18b0-8133-4f40-bde1-ecf9fbb02931)
+
+![mapa3](https://github.com/user-attachments/assets/fb923050-1dd5-4d5d-8c0f-6587d4739b0a)
+
+
 Stribor je 3D igrica inspirirana bajkom Šuma Striborova autorice Ivane Brlić-Mažuranić. Igra se odvija unutar šume striborove kojom vlada drevna zla magija. Igrač mora biti hrabar i kročiti u dubine šume izbjegavajući neprijatelje i opasnosti i izlječiti šumu.
 Tijekom igre igrača ganjaju neprijatelji od kojih se treba sakriti. Igrač može interaktirati sa svijetom, predmetima i otkriti priču stanovnika šume.
 Glavne igre koje su inspirirale ovu su: Slenderman, Alien Isolation i Amnesia.
