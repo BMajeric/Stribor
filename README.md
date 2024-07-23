@@ -1,6 +1,8 @@
 # Stribor
 3D Survival Horror igrica inspirirana slavenskom mitologijom i hrvatskim bajkama. Napravljena u Unityu u sklopu vještine za FER.
 
+Download: https://7ljudi.itch.io/stribor
+
 ## Opis
 ![ikona](https://github.com/user-attachments/assets/e451e24e-f0dc-4f31-ac95-fcc265ccb992)
 
