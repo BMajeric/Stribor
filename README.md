@@ -28,7 +28,7 @@ Glavne igre koje su inspirirale ovu su: Slenderman, Alien Isolation i Amnesia.
 - Skupljanje objekata
 - Skrivanje od neprijatelja i stealth mehanike
 - Početak i kraj igre
-- AI neprijatelj (basic)
+- AI neprijatelj (jednostavan)
 - Mapa i lokacije na mapi
 - Radar za detekciju objekata
 - Osnovno 3D modeliranje
@@ -36,10 +36,9 @@ Glavne igre koje su inspirirale ovu su: Slenderman, Alien Isolation i Amnesia.
 - Smrt i kraj igre
 - Main menu
 ## Problemi
-- AI je jako goofy aah
-- Bolje pojašnjena igra
-- Polishing potreban
-- Puno stvari neću lagati
+- AI je veoma šašav, treba popraviti razmišljanje agenta
+- Treba bolje pojasniti cilj i flow igre igraču
+- Potrebno raditi na detaljima igre
 ## Za implementirati
 - Tutorial zona
 - Dodatni neprijatelji
