@@ -37,7 +37,7 @@ public class SlopeHandler : MonoBehaviour
 
     private bool OnSteepSlope() {
 
-        Vector3 smjervektor = rigid.velocity + Vector3.down;
+        Vector3 smjervektor = rigid.linearVelocity + Vector3.down;
 
         if (Physics.Raycast(ociLevel.position, smjervektor, out hitSlope, 2f)) {
 

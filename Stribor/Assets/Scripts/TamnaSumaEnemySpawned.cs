@@ -144,7 +144,7 @@ public class TamnaSumaEnemySpawned : MonoBehaviour
         while (napadZvuk.isPlaying) {
             //provjeravaj za kretanje svaki frame
 
-            if (player.GetComponent<Rigidbody>().velocity.magnitude > 1f || !svarozicSkripta.SvarozicUgasen) {
+            if (player.GetComponent<Rigidbody>().linearVelocity.magnitude > 1f || !svarozicSkripta.SvarozicUgasen) {
                 ubijIgraca();
                 yield break;
             }

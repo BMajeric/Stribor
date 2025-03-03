@@ -471,7 +471,7 @@ public class FirstPersonController : MonoBehaviour
                 //Debug.Log(targetVelocity.magnitude);
 
                 // Apply a force that attempts to reach our target velocity
-                Vector3 velocity = rb.velocity;
+                Vector3 velocity = rb.linearVelocity;
                 Vector3 velocityChange = (targetVelocity - velocity);
                 velocityChange.x = Mathf.Clamp(velocityChange.x, -maxVelocityChange, maxVelocityChange);
                 velocityChange.z = Mathf.Clamp(velocityChange.z, -maxVelocityChange, maxVelocityChange);
@@ -539,7 +539,7 @@ public class FirstPersonController : MonoBehaviour
                 }
 
                 // Apply a force that attempts to reach our target velocity
-                Vector3 velocity = rb.velocity;
+                Vector3 velocity = rb.linearVelocity;
                 Vector3 velocityChange = (targetVelocity - velocity);
                 velocityChange.x = Mathf.Clamp(velocityChange.x, -maxVelocityChange, maxVelocityChange);
                 velocityChange.z = Mathf.Clamp(velocityChange.z, -maxVelocityChange, maxVelocityChange);
@@ -559,7 +559,7 @@ public class FirstPersonController : MonoBehaviour
         Vector3 direction = transform.TransformDirection(Vector3.down);
         
         float distance = 1f;
-        Vector3 smjerKretanja = (rb.velocity.normalized + Vector3.down).normalized;
+        Vector3 smjerKretanja = (rb.linearVelocity.normalized + Vector3.down).normalized;
         Debug.DrawRay(origin, smjerKretanja, Color.blue, 2);
 
         if (Physics.Raycast(origin, direction, out RaycastHit hit, distance))
@@ -615,7 +615,7 @@ public class FirstPersonController : MonoBehaviour
         // Adds force to the player rigidbody to jump
         if (isGrounded)
         {
-            rb.AddForce(0f, -rb.velocity.y + jumpPower, 0f, ForceMode.Impulse);
+            rb.AddForce(0f, -rb.linearVelocity.y + jumpPower, 0f, ForceMode.Impulse);
             isGrounded = false;
         }
 
